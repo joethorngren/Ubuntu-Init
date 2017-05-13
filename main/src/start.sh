@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt-get update && sudo apt-get upgrade
+
 # Add Repos
 
 sudo add-apt-repository ppa:git-core/ppa
@@ -17,4 +19,12 @@ git config --global user.email "joethorngren@gmail.com"
 sudo apt install ./keyring.deb
 echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" >> /etc/apt/sources.list.d/sur5r-i3.list
 sudo apt update
-sudo apt install i3
+sudo apt install i3 -y
+
+# Install Slack
+wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
+sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
+
+# Install Calibre
+
+wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('~/calibre-bin', True)"
