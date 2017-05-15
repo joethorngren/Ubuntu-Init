@@ -6,6 +6,10 @@ sudo apt-get update && sudo apt-get upgrade
 
 sudo add-apt-repository ppa:git-core/ppa
 
+# Vin
+
+sudo apt-get install vim
+
 # Install Git
 
 sudo apt-get install git
@@ -22,6 +26,7 @@ sudo apt update
 sudo apt install i3 -y
 
 # Install Slack
+
 wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
 sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
 
