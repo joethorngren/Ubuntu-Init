@@ -17,3 +17,27 @@ dotfiles add ~/.scmbrc
 
 git clone --bare https://github.com/joethorngren/Dotfiles.git
 dotfiles config status.showUntrackedFiles no
+
+
+=================================================
+
+
+dayfun:~/ $ nvidia-smi
+Mon May 15 14:50:59 2017
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 375.39                 Driver Version: 375.39                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1070    Off  | 0000:01:00.0      On |                  N/A |
+| 28%   48C    P0    34W / 151W |    608MiB /  8110MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID  Type  Process name                               Usage      |
+|=============================================================================|
+|    0      1317    G   /usr/lib/xorg/Xorg                             432MiB |
+|    0      4314    G   ...el-token=B9B779F9E00BD178FC7F4A34FF6F27E4   173MiB |
++-----------------------------------------------------------------------------+
