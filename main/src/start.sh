@@ -34,27 +34,18 @@ echo ""
 
 # Add Git Repository + Install Git
 
-
 rm -rf Templates Public Music Videos Pictures examples.desktop
-mkdir Apps Android
+mkdir ~/Apps ~/Android
 
 sudo add-apt-repository ppa:git-core/ppa -y
-sudo apt-get update -y
-sudo apt-get install git -y
+sudo add-apt-repository ppa:webupd8team/java -y
 
-# Configure Git
-# git config --global user.name "Joe Thorngren"
-# git config --global user.email "joethorngren@gmail.com"
 
-# Vim
-
-sudo apt-get install vim -y
+sudo apt-get install -y arandr pavucontrol unzip vim git git-core chromium-browser fonts-powerline
 
 # Z-Shell
 
-sudo apt-get install git-core zsh zsh-completions -y
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-sudo apt-get install fonts-powerline -y
 
 # i3
 
@@ -67,8 +58,9 @@ sudo apt install i3 -y
 # IntelliJ
 
 wget -O ~/Downloads/ideaIU-2017.1.2.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
-tar -zxvf ~/Downloads/ideaIU-2017.1.2.tar.gz -C ~/Apps
-cp ././lib/intellij-settings.jar /home/dayfun/.IntelliJIdea2017.1/config/settings.jar
+tar -zxvf ~/Downloads/ideaIU-2017.1.2.tar.gz -C ~/Apps/
+cp ././lib/intellij-settings.jar ~/intellij-settings.jar
+cp ././lib/studio-settings.jar ~/studio-settings.jar
 
 # Android SDK
 
@@ -82,4 +74,4 @@ sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
 
 # Install Calibre
 
-wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('~/calibre-bin', True)"
+wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('~/Apps/Calibre', True)"
