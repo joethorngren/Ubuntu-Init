@@ -1,5 +1,10 @@
+# Create Repository
+git init --bare $HOME/.dotfiles
+
+# Alias
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
+# Config
 dotfiles config status.showUntrackedFiles no
 
 dotfiles add ~/.vimrc
@@ -7,3 +12,8 @@ dotfiles add ~/.zshrc
 dotfiles add ~/.gitconfig
 dotfiles add ~/.config/i3/config
 dotfiles add ~/.scmbrc
+
+# To clone on another pc:
+
+git clone --bare https://github.com/joethorngren/Dotfiles.git
+dotfiles config status.showUntrackedFiles no
