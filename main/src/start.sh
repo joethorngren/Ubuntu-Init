@@ -6,9 +6,16 @@ sudo apt-get update && sudo apt-get upgrade
 
 sudo add-apt-repository ppa:git-core/ppa
 
-# Vin
+# Vim
 
 sudo apt-get install vim
+
+# Z-Shell
+
+sudo apt-get install git-core zsh zsh-completions
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sudo apt install fonts-powerline
+
 
 # i3
 
