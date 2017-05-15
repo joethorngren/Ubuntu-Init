@@ -1,1 +1,9 @@
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+
+dotfiles config status.showUntrackedFiles no
+
+dotfiles add ~/.vimrc
+dotfiles add ~/.zshrc
+dotfiles add ~/.gitconfig
+dotfiles add ~/.config/i3/config
+dotfiles add ~/.scmbrc
