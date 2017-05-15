@@ -3,16 +3,49 @@
 echo "***********"
 echo "Updating..."
 echo "***********"
+echo ""
+echo ""
+echo ""
+
 sudo apt-get update -y
+
+echo ""
+echo ""
+echo "Done updating!"
+echo ""
+echo ""
 
 echo "***********"
 echo "Upgrading..."
 echo "***********"
+echo ""
+echo ""
+echo ""
+
 sudo apt-get upgrade -y
+
+echo ""
+echo ""
+echo "Done upgrading!"
+echo ""
+echo ""
 
 # Add Git Repository + Install Git
 
-sudo add-apt-repository ppa:git-core/ppa
+echo "***********"
+echo "Installing Git..."
+echo "***********"
+echo ""
+echo ""
+echo ""
+
+echo ""
+echo ""
+echo "Done upgrading!"
+echo ""
+echo ""
+
+sudo add-apt-repository ppa:git-core/ppa -y
 sudo apt-get update -y
 sudo apt-get install git
 
