@@ -49,6 +49,20 @@ echo "Done cleaning!"
 echo ""
 echo ""
 
+echo "***********"
+echo "Updating Nvidia Drivers..."
+echo "***********"
+echo ""
+echo ""
+
+sudo ubuntu-drivers autoinstall
+
+echo ""
+echo ""
+echo "Done cleaning!"
+echo ""
+echo ""
+
 echo ""
 echo ""
 echo "***********"
@@ -101,8 +115,6 @@ echo "***********"
 echo ""
 echo ""
 
-sudo apt-get update -y
-
 echo ""
 echo ""
 echo "Done updating!"
@@ -117,7 +129,13 @@ echo "***********"
 echo ""
 echo ""
 
-sudo apt-get install -y arandr pavucontrol unzip thunar htop vim git git-core chromium-browser  fonts-powerline zsh zsh-completions oracle-java8-installer
+sudo apt-get install -y python-software-properties debconf-utils
+
+sudo apt-get update -y
+
+echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
+
+sudo apt-get install -y oracle-java8-installer arandr pavucontrol unzip thunar htop vim git git-core chromium-browser  fonts-powerline zsh zsh-completions 
 
 # timeshift
 
