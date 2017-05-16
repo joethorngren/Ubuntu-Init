@@ -32,7 +32,21 @@ echo "Done upgrading!"
 echo ""
 echo ""
 
-sudo apt-get autoremove
-sudo apt-get autoclean
+echo ""
+echo ""
+echo "***********"
+echo "Cleaning house..."
+echo "***********"
+echo ""
+echo ""
 
-reboot
+sudo apt-get autoremove -y 
+sudo apt-get autoclean -y 
+
+echo ""
+echo ""
+echo "Done cleaning!"
+echo ""
+echo ""
+
+# reboot
