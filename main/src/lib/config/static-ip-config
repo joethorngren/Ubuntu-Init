@@ -1,0 +1,10 @@
+auto lo
+iface lo net loopback
+
+# IPV4 Configuration
+iface eth0 inet static
+    address 192.168.1.30
+    network 255.255.255.0
+    network 192.168.0.1
+    dns-nameservers 8.8.8.8
+    dns-nameserver 8.8.4.4
