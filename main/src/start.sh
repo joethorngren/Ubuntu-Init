@@ -77,7 +77,7 @@ echo "***********"
 echo ""
 echo ""
 
-sudo apt-get update -y
+sudo apt update -y
 
 echo ""
 echo ""
@@ -93,13 +93,13 @@ echo "***********"
 echo ""
 echo ""
 
-sudo apt-get install -y python-software-properties debconf-utils
+sudo apt install -y python-software-properties debconf-utils
 
-sudo apt-get update -y
+sudo apt update -y
 
 echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 
-sudo apt-get install -y oracle-java8-installer curl dconf-editor arandr pavucontrol unzip thunar nitrogen compton shutter htop vim git git-core chromium-browser fonts-powerline zsh zsh-completions timeshift
+sudo apt install -y oracle-java8-installer curl dconf-editor arandr pavucontrol unzip thunar nitrogen compton shutter htop vim git git-core chromium-browser fonts-powerline zsh zsh-completions timeshift
 
 echo ""
 echo ""
@@ -119,7 +119,7 @@ cp ././lib/studio-settings.jar ~/studio-settings.jar
 
 wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
 sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
-sudo apt-get -fy install
+sudo apt -fy install
 
 # Install Calibre
 
