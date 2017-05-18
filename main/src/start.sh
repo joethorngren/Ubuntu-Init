@@ -52,7 +52,7 @@ sudo apt-key add - < Release.key
 
 sudo add-apt-repository -y ppa:git-core/ppa
 sudo add-apt-repository -y ppa:webupd8team/java
-# sudo apt-add-repository -y ppa:teejee2008/ppa
+sudo apt-add-repository -y ppa:teejee2008/ppa
 
 echo ""
 echo ""
@@ -67,6 +67,8 @@ echo "Updating..."
 echo "***********"
 echo ""
 echo ""
+
+sudo apt-get update -y
 
 echo ""
 echo ""
@@ -88,9 +90,7 @@ sudo apt-get update -y
 
 echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 
-sudo apt-get install -y oracle-java8-installer curl arandr pavucontrol unzip thunar htop vim git git-core chromium-browser  fonts-powerline zsh zsh-completions 
-
-# timeshift
+sudo apt-get install -y oracle-java8-installer curl arandr pavucontrol unzip thunar htop vim git git-core chromium-browser  fonts-powerline zsh zsh-completions timeshift
 
 echo ""
 echo ""
@@ -101,8 +101,8 @@ echo ""
 git config --global user.email "joethorngren@gmail.com"
 git config --global user.name "Joe Thorngren"
 
-wget -O ~/Downloads/ideaIU-2017.1.2.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
-tar -zxvf ~/Downloads/ideaIU-2017.1.2.tar.gz -C ~/Apps/
+wget -O ~/Downloads/ideaIU-2017.1.3.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
+tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/
 cp ././lib/intellij-settings.jar ~/intellij-settings.jar
 cp ././lib/studio-settings.jar ~/studio-settings.jar
 
@@ -124,7 +124,11 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2017.01.02_all.deb keyring.deb SHA256:4c3c6685b1181d83efe3a479c5ae38a2a44e23add55e16a328b8c8560bf05e5f
 sudo apt install ./keyring.deb
-echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" >> /etc/apt/sources.list.d/sur5r-i3.list
+
+echo ""
+
+sudo sh -c 'cat  deb http://debian.sur5r.net/i3/ xenial universe > /etc/apt/sources.list.d/sur5r-i3.list'
+
 sudo apt update -y
 sudo apt install -y -f i3 i3blocks i3status i3lock
 
