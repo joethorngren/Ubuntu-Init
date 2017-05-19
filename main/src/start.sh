@@ -93,13 +93,24 @@ echo "***********"
 echo ""
 echo ""
 
+# Install Java
+
 sudo apt install -y python-software-properties debconf-utils
 
 sudo apt update -y
 
 echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 
-sudo apt install -y oracle-java8-installer curl dconf-editor arandr pavucontrol unzip thunar nitrogen compton shutter htop vim git git-core chromium-browser fonts-powerline zsh zsh-completions timeshift
+sudo apt install -y oracle-java8-installer
+
+# System Apps + Tools
+sudo apt install -y curl dconf-editor arandr pavucontrol unzip thunar shutter htop vim timeshift chromium-browser
+
+# Git
+sudo apt install -y git git-core git-doc git-gui gitk
+
+# CLI
+sudo apt install -y fonts-powerline zsh zsh-completions
 
 echo ""
 echo ""
@@ -129,7 +140,7 @@ wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "
 
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-## i3
+# i3 Shizz
 
 /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2017.01.02_all.deb keyring.deb SHA256:4c3c6685b1181d83efe3a479c5ae38a2a44e23add55e16a328b8c8560bf05e5f
 sudo apt install ./keyring.deb
@@ -139,7 +150,9 @@ echo ""
 sudo sh -c 'cat  deb http://debian.sur5r.net/i3/ xenial universe > /etc/apt/sources.list.d/sur5r-i3.list'
 
 sudo apt update -y
-sudo apt install -y -f i3 i3blocks i3status i3lock
+sudo apt install -y -f i3 i3blocks i3status i3lock nitrogen compton
+
+sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 
 reboot
 
