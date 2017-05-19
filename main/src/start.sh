@@ -104,13 +104,17 @@ echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | 
 sudo apt install -y oracle-java8-installer
 
 # System Apps + Tools
-sudo apt install -y curl dconf-editor arandr pavucontrol unzip thunar shutter htop vim timeshift chromium-browser
+sudo apt install -y curl dconf-editor arandr pavucontrol unzip thunar shutter htop vim timeshift chromium-browser gksu
 
 # Git
 sudo apt install -y git git-core git-doc git-gui gitk
 
 # CLI
 sudo apt install -y fonts-powerline zsh zsh-completions
+
+# Miscellaneous
+sudo apt install -y
+# screenkey
 
 echo ""
 echo ""
