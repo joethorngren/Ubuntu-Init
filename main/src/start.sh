@@ -201,7 +201,8 @@ echo ""
 sudo sh -c 'cat  deb http://debian.sur5r.net/i3/ xenial universe > /etc/apt/sources.list.d/sur5r-i3.list'
 
 sudo apt update -y
-sudo apt install -y -f i3 i3blocks i3status i3lock nitrogen compton ubuntu-mate-welcome
+sudo apt install -y -f i3 i3blocks i3status i3lock nitrogen compton
+# ubuntu-mate-welcome
 
 sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 
@@ -213,5 +214,5 @@ sudo apt-get autoremove --purge unity unity-common unity-services libunity-core-
 # the following command will disable the desktop (we won't need it with i3!)
 gsettings set org.gnome.desktop.background show-desktop-icons false
 
-reboot
+# reboot
 
