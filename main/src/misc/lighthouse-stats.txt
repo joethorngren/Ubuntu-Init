@@ -1,0 +1,55 @@
+"The following information is retrieved directly from the inxi command line program"
+
+System:    Host: LightHouse Kernel: 4.8.0-52-generic x86_64 (64 bit gcc: 5.4.0) Desktop: i3 4.13 dm: lightdm
+           Distro: Ubuntu 16.04 xenial
+Machine:   Mobo: ASUSTeK model: Z170-AR v: Rev 1.xx serial: 150750068500569
+           Bios: American Megatrends v: 3401 date: 01/25/2017
+CPU:       Quad core Intel Core i7-6700K (-HT-MCP-) cache: 8192 KB
+           flags: (lm nx sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx) bmips: 32064
+           clock speeds: min/max: 800/4300 MHz 1: 2956 MHz 2: 3199 MHz 3: 3120 MHz 4: 3119 MHz 5: 2745 MHz
+           6: 2646 MHz 7: 2666 MHz 8: 2944 MHz
+Memory:    Array-1 capacity: 64 GB devices: 4 EC: None
+           Device-1: ChannelA-DIMM1 size: 4 GB speed: 2667 MHz type: DDR4 (Synchronous)
+           bus width: 64 bits manufacturer: Corsair part: CMD16GX4M4A2800C16 serial: N/A
+           Device-2: ChannelA-DIMM2 size: 4 GB speed: 2667 MHz type: DDR4 (Synchronous)
+           bus width: 64 bits manufacturer: Corsair part: CMD16GX4M4A2800C16 serial: N/A
+           Device-3: ChannelB-DIMM1 size: 4 GB speed: 2667 MHz type: DDR4 (Synchronous)
+           bus width: 64 bits manufacturer: Corsair part: CMD16GX4M4A2800C16 serial: N/A
+           Device-4: ChannelB-DIMM2 size: 4 GB speed: 2667 MHz type: DDR4 (Synchronous)
+           bus width: 64 bits manufacturer: Corsair part: CMD16GX4M4A2800C16 serial: N/A
+Graphics:  Card: NVIDIA Device 1b81 bus-ID: 01:00.0 chip-ID: 10de:1b81
+           Display Server: X.org 1.18.4 drivers: nvidia (unloaded: fbdev,vesa,nouveau)
+           tty size: 125x79 Advanced Data: N/A for root
+Audio:     Card-1 NVIDIA Device 10f0 driver: snd_hda_intel bus-ID: 01:00.1 chip-ID: 10de:10f0
+           Card-2 Intel Sunrise Point-H HD Audio driver: snd_hda_intel bus-ID: 00:1f.3 chip-ID: 8086:a170
+           Card-4 Blue Microphones Yeti Stereo Microphone driver: USB Audio usb-ID: 001-006 chip-ID: b58e:9e84
+           Card-5 Logitech HD Webcam C910 driver: USB Audio usb-ID: 001-007 chip-ID: 046d:0821
+           Sound: Advanced Linux Sound Architecture v: k4.8.0-52-generic
+Network:   Card-1: Intel Ethernet Connection (2) I219-V
+           driver: e1000e v: 3.2.6-k bus-ID: 00:1f.6 chip-ID: 8086:15b8
+           IF: enp0s31f6 state: up speed: 1000 Mbps duplex: full mac: 30:5a:3a:57:34:10
+           Card-2: Intel Wireless 7260 driver: iwlwifi bus-ID: 06:00.0 chip-ID: 8086:08b1
+           IF: wlp6s0 state: down mac: 7c:5c:f8:a4:e9:4e
+Drives:    HDD Total Size: 1500.3GB (6.8% used)
+           ID-1: /dev/nvme0n1 model: N/A size: 512.1GB serial: S2GMNCAGC08208L
+           ID-2: /dev/sda model: Samsung_SSD_850 size: 250.1GB serial: S21NNSAG123108Z temp: 0C
+           ID-3: /dev/sdb model: Samsung_SSD_850 size: 250.1GB serial: S21NNSAG121197H temp: 0C
+           ID-4: /dev/sdc model: WDC_WD10EALS size: 1000.2GB serial: WD-WCATR0579376 temp: 34C
+           Optical: /dev/sr0 model: TSST CDDVDW TS-H653R rev: 0301 dev-links: cdrom,cdrw,dvd,dvdrw
+           Features: speed: 40x multisession: yes
+           audio: yes dvd: yes rw: cd-r,cd-rw,dvd-r,dvd-ram state: running
+Partition: ID-1: / size: 37G used: 14G (39%) fs: ext4 dev: /dev/nvme0n1p5
+           label: N/A uuid: faebdd13-1d63-480d-90ef-0fb08f983879
+           ID-2: /boot/efi size: 96M used: 29M (30%) fs: vfat dev: /dev/nvme0n1p2 label: N/A uuid: 1A12-B84F
+           ID-3: /media/root/Lab size: 230G used: 54G (25%) fs: ext4 dev: /dev/sda1
+           label: Lab uuid: 8596e2f0-70c7-4b90-9139-31253fdbe897
+           ID-4: swap-1 size: 32.00GB used: 0.00GB (0%) fs: swap dev: /dev/nvme0n1p6
+           label: N/A uuid: aee06272-2391-4706-97c7-b2494841ea7e
+RAID:      System: supported: N/A
+           No RAID devices: /proc/mdstat, md_mod kernel module present
+           Unused Devices: none
+Sensors:   System Temperatures: cpu: 24.0C mobo: N/A gpu: 0.0:44C
+           Fan Speeds (in rpm): cpu: 0
+Info:      Processes: 295 Uptime: 7 min Memory: 5244.6/15985.6MB
+           Init: systemd v: 229 runlevel: 5 default: 2 Gcc sys: 5.4.0
+           Client: Shell (ubuntu-mate-wel running in sudo) inxi: 2.2.35

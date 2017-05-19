@@ -41,3 +41,11 @@ Mon May 15 14:50:59 2017
 |    0      1317    G   /usr/lib/xorg/Xorg                             432MiB |
 |    0      4314    G   ...el-token=B9B779F9E00BD178FC7F4A34FF6F27E4   173MiB |
 +-----------------------------------------------------------------------------+
+
+
+=================================================================================
+
+Processing triggers for libc-bin (2.23-0ubuntu7) ...
+/sbin/ldconfig.real: /usr/lib/nvidia-375/libEGL.so.1 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/lib32/nvidia-375/libEGL.so.1 is not a symbolic link
