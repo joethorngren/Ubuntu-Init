@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Archives
+Comment=LightHouse-Cloud Archives
+Exec=thunar /media/dayfun/share
+Icon=system-file-manager
+X-Ubuntu-Gettext-Domain=Archives
