@@ -211,7 +211,7 @@ sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 # Kill Unity
 
 sudo apt autoremove --purge -y compiz compiz-gnome compiz-plugins-default libcompizconfig0
-sudo apt autoremove --purge -y unity unity-common unity-services libunity-core-6 libunity-misc4 appmenu-gtk appmenu-gtk3 appmenu-qt overlay-scrollbar activity-log-manager-control-center firefox-globalmenu thunderbird-globalmenu
+sudo apt autoremove --purge -y unity unity-common unity-services libunity-misc4 appmenu-gtk appmenu-gtk3 appmenu-qt overlay-scrollbar activity-log-manager-control-center firefox-globalmenu thunderbird-globalmenu
 sudo apt autoremove
 sudo apt autoclean
 
