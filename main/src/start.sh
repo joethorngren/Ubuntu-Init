@@ -59,7 +59,7 @@ echo ""
 echo ""
 
 
-rm -rf Templates Public Music Videos Examples Pictures examples.desktop
+rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
 mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
 cp lib/config/1x2x1.sh ~/.screenlayout/
 
@@ -166,7 +166,10 @@ echo ""
 git config --global user.email "joethorngren@gmail.com"
 git config --global user.name "Joe Thorngren"
 
+# IntelliJ
+
 wget -O ~/Downloads/ideaIU-2017.1.3.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
+mkdir ~/Apps/IntelliJ-2017.1.3
 tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/IntelliJ-2017.1.3
 cp ././lib/intellij-settings.jar ~/intellij-settings.jar
 cp ././lib/studio-settings.jar ~/studio-settings.jar
