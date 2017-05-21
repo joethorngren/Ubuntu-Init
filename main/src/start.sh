@@ -170,6 +170,10 @@ git config --global user.name "Joe Thorngren"
 
 wget -O ~/Downloads/ideaIU-2017.1.3.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
 mkdir ~/Apps/IntelliJ-2017.1.3
+# TODO: Has to be a better way to do this... 
+cp -r Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39/* Apps/IntelliJ-2017.1.3 
+rm -rf Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39 ~/Downloads/ideaIU-2017.1.3.tar.gz
+
 tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/IntelliJ-2017.1.3
 cp ././lib/intellij-settings.jar ~/intellij-settings.jar
 cp ././lib/studio-settings.jar ~/studio-settings.jar
