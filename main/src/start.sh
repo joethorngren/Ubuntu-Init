@@ -60,7 +60,7 @@ echo ""
 
 
 rm -rf Templates Public Music Videos Examples Pictures examples.desktop
-mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout
+mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
 cp lib/config/1x2x1.sh ~/.screenlayout/
 
 echo ""
@@ -96,7 +96,6 @@ sudo add-apt-repository -y ppa:webupd8team/java
 
 # Timeshift
 sudo apt-add-repository -y ppa:teejee2008/ppa
-
 
 # Shutter
 wget -q http://shutter-project.org/shutter-ppa.key -O- | sudo apt-key add -
@@ -155,12 +154,8 @@ sudo apt install -y curl dconf-editor arandr pavucontrol unzip thunar shutter ht
 # Git
 sudo apt install -y git git-core git-doc git-gui gitk
 
-# CLI
-sudo apt install -y fonts-powerline zsh zsh-completions
-
-# Miscellaneous
-sudo apt install -y
-# screenkey
+# Purgatory:
+#             screenkey, ubuntu-mate-welcome, zsh-completions
 
 echo ""
 echo ""
@@ -176,3 +171,44 @@ tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/IntelliJ-2017.1.3
 cp ././lib/intellij-settings.jar ~/intellij-settings.jar
 cp ././lib/studio-settings.jar ~/studio-settings.jar
 
+# Install Slack
+
+wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
+sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
+sudo apt -fy install
+
+# Install Calibre
+
+wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('~/Apps/', True)"
+mv ~/Apps/calibre/ ~/Apps/Calibre/
+
+# Z-Shell
+
+# CLI
+sudo apt install -y zsh zsh-doc fonts-powerline
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# i3 Shizz
+
+/usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2017.01.02_all.deb ~/bin/i3-keyring.deb SHA256:4c3c6685b1181d83efe3a479c5ae38a2a44e23add55e16a328b8c8560bf05e5f
+sudo apt install ~/bin/i3-keyring.deb
+
+echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/sources.list.d/sur5r-i3.list
+
+sudo apt update -y
+sudo apt install -y -f i3 i3blocks i3status i3lock nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
+sudo apt dist-upgrade -y
+
+sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
+
+# Kill Unity
+
+sudo apt autoremove --purge -y compiz compiz-gnome compiz-plugins-default libcompizconfig0
+sudo apt autoremove --purge -y unity unity-common unity-services libunity-core-6 libunity-misc4 appmenu-gtk appmenu-gtk3 appmenu-qt overlay-scrollbar activity-log-manager-control-center firefox-globalmenu thunderbird-globalmenu
+sudo apt autoremove
+sudo apt autoclean
+
+# the following command will disable the desktop (we won't need it with i3!)
+gsettings set org.gnome.desktop.background show-desktop-icons false
+
+# reboot
