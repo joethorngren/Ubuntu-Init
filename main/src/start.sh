@@ -128,7 +128,7 @@ echo "***********"
 echo ""
 echo ""
 
-sudo apt-get install nvidia-375
+sudo apt install -y nvidia-375
 
 echo ""
 echo ""
