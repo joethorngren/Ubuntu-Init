@@ -170,6 +170,7 @@ git config --global user.name "Joe Thorngren"
 
 wget -O ~/Downloads/ideaIU-2017.1.3.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
 mkdir ~/Apps/IntelliJ-2017.1.3
+
 # TODO: Has to be a better way to do this... 
 cp -r Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39/* Apps/IntelliJ-2017.1.3 
 rm -rf Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39 ~/Downloads/ideaIU-2017.1.3.tar.gz
@@ -198,13 +199,18 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # i3 Shizz
 
 /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2017.01.02_all.deb ~/bin/i3-keyring.deb SHA256:4c3c6685b1181d83efe3a479c5ae38a2a44e23add55e16a328b8c8560bf05e5f
-sudo apt install ~/bin/i3-keyring.deb
+sudo apt install -y ~/bin/i3-keyring.deb
 
 echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/sources.list.d/sur5r-i3.list
 
 sudo apt update -y
 sudo apt install -y -f i3 i3blocks i3status i3lock nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
 sudo apt dist-upgrade -y
+
+mkdir ~/.fonts
+cp -r lib/res/fonts/ ~/.fonts/
+cd ~/.fonts
+
 
 sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 
