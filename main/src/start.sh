@@ -204,13 +204,10 @@ sudo apt install -y ~/bin/i3-keyring.deb
 echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/sources.list.d/sur5r-i3.list
 
 sudo apt update -y
-sudo apt install -y -f i3 i3blocks i3status i3lock nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
+sudo apt install -y -f i3 i3blocks i3status i3lock rofi nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
 sudo apt dist-upgrade -y
 
 mkdir ~/.fonts
-cp -r lib/res/fonts/ ~/.fonts/
-cd ~/.fonts
-
 
 sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 
@@ -223,5 +220,11 @@ sudo apt autoclean
 
 # the following command will disable the desktop (we won't need it with i3!)
 gsettings set org.gnome.desktop.background show-desktop-icons false
+
+# Dotfiles
+
+git clone --bare https://github.com/joethorngren/Dotfiles.git .dotfiles/
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+dotfiles config status.showUntrackedFiles no
 
 # reboot
