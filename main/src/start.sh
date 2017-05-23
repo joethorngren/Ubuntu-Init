@@ -176,8 +176,15 @@ cp -r Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39/* Apps/IntelliJ-2017.1.3
 rm -rf Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39 ~/Downloads/ideaIU-2017.1.3.tar.gz
 
 tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/IntelliJ-2017.1.3
-cp ././lib/intellij-settings.jar ~/intellij-settings.jar
-cp ././lib/studio-settings.jar ~/studio-settings.jar
+cp lib/config/intellij-settings.jar ~/intellij-settings.jar
+
+cp lib/config/studio-settings.jar ~/studio-settings.jar
+
+# Android Studio
+
+sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
+mkdir ~/Apps/Android-Studio
+# TODO: Download + Unzip + move to newly created dir on line #186
 
 # Install Slack
 
@@ -206,6 +213,8 @@ echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/so
 sudo apt update -y
 sudo apt install -y -f i3 i3blocks i3status i3lock rofi nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
 sudo apt dist-upgrade -y
+
+sudo cp lib/config/lightdm.conf /etc/lightdm/lightdm.conf
 
 mkdir ~/.fonts
 
