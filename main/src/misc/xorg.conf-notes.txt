@@ -18,3 +18,7 @@ Removed from generated Screen section:
 # Location of lightdm configuration files: /usr/share/lightdm/lightdm.conf.d/
 # 50-disable-log-backup.conf  50-guest-wrapper.conf  50-unity-greeter.conf    60-lightdm-gtk-greeter.conf
 # 50-greeter-wrapper.conf     50-ubuntu.conf         50-xserver-command.conf  90-nvidia.conf
+
+# Links:
+
+https://www.one-tab.com/page/EBIpE0RsTWevKGA6UdMl5w
