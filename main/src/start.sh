@@ -214,7 +214,6 @@ sudo apt update -y
 sudo apt install -y -f i3 i3blocks i3status i3lock rofi nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
 sudo apt dist-upgrade -y
 
-sudo cp lib/config/lightdm.conf /etc/lightdm/lightdm.conf
 
 mkdir ~/.fonts
 

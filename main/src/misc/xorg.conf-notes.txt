@@ -1,0 +1,20 @@
+Minimum Requirements for Valid xorg.conf:
+    - Device: GPU Driver
+    - Monitor: Monitors that are attached
+    - Screen: How you set the layout
+
+
+Removed from generated Screen section:
+
+    Option         "Stereo" "0"
+    Option         "nvidiaXineramaInfoOrder" "DFP-3"
+    Option         "SLI" "Off"
+    Option         "MultiGPU" "Off"
+    Option         "BaseMosaic" "off"
+    Option         "UseEdidDpi" "False"
+
+
+# sudo cp lib/config/lightdm.conf /etc/lightdm/lightdm.conf
+# Location of lightdm configuration files: /usr/share/lightdm/lightdm.conf.d/
+# 50-disable-log-backup.conf  50-guest-wrapper.conf  50-unity-greeter.conf    60-lightdm-gtk-greeter.conf
+# 50-greeter-wrapper.conf     50-ubuntu.conf         50-xserver-command.conf  90-nvidia.conf
