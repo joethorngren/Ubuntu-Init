@@ -102,10 +102,8 @@ Section "Screen"
     Identifier     "1-2-1-Screen"
     Device         "Default-Device"
     DefaultDepth    24
-    Option         "metamodes" "HDMI-0: nvidia-auto-select +0+808 {rotation=right}, HDMI-1: nvidia-auto-select +4520+808 {rotation=left}, DP-2: nvidia-auto-select +1080+1440, DP-0: nvidia-auto-select +1080+0; HDMI-0: 1920x1080_60_0 +0+0 {rotation=right}; HDMI-0: 1920x1080_50 +0+0 {rotation=right}; HDMI-0: 1920x1080_60i +0+0 {rotation=right}; HDMI-0: 1920x1080_50i +0+0 {rotation=right}; HDMI-0: 1680x1050 +0+0 {rotation=right}; HDMI-0: 1440x900 +0+0 {rotation=right}; HDMI-0: 1440x576 +0+0 {rotation=right}; HDMI-0: 1440x480 +0+0 {rotation=right}; HDMI-0: 1280x1024 +0+0 {rotation=right}; HDMI-0: 1280x1024_60 +0+0 {rotation=right}; HDMI-0: 1280x960 +0+0 {rotation=right}; HDMI-0: 1280x800 +0+0 {rotation=right}; HDMI-0: 1280x720 +0+0 {rotation=right}; HDMI-0: 1280x720_60_0 +0+0 {rotation=right}; HDMI-0: 1280x720_50 +0+0 {rotation=right}; HDMI-0: 1152x864 +0+0 {rotation=right}; HDMI-0: 1024x768 +0+0 {rotation=right}"
+    Option         "metamodes" "HDMI-0: nvidia-auto-select +0+808 {rotation=right}, HDMI-1: nvidia-auto-select +4520+808 {rotation=left}, DP-2: nvidia-auto-select +1080+1440, DP-0: nvidia-auto-select +1080+0"
     Option         "UseEdidDpi" "False"
-    Option         "nvidiaXineramaInfo" "False"
-
     SubSection     "Display"
         Depth       24
     EndSubSection
