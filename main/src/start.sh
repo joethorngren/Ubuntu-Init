@@ -167,42 +167,6 @@ echo ""
 git config --global user.email "joethorngren@gmail.com"
 git config --global user.name "Joe Thorngren"
 
-# IntelliJ
-
-wget -O ~/Downloads/ideaIU-2017.1.3.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
-mkdir ~/Apps/IntelliJ-2017.1.3
-
-# TODO: Has to be a better way to do this... 
-cp -r Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39/* Apps/IntelliJ-2017.1.3 
-rm -rf Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39 ~/Downloads/ideaIU-2017.1.3.tar.gz
-
-tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/IntelliJ-2017.1.3
-cp lib/config/intellij-settings.jar ~/intellij-settings.jar
-
-cp lib/config/studio-settings.jar ~/studio-settings.jar
-
-# Android Studio
-
-sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
-mkdir ~/Apps/Android-Studio
-# TODO: Download + Unzip + move to newly created dir on line #186
-
-# KVM:
-
-sudo apt install -y qemu-kvm libvirt0 libvirt-bin virt-manager bridge-utils
-sudo systemctl enable libvirt-bin
-
-# Install Slack
-
-wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
-sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
-sudo apt -fy install
-
-# Install Calibre
-
-wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('~/Apps/', True)"
-mv ~/Apps/calibre/ ~/Apps/Calibre/
-
 # Z-Shell
 
 # CLI
@@ -256,4 +220,39 @@ git clone --bare https://github.com/joethorngren/Dotfiles.git .dotfiles/
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 dotfiles config status.showUntrackedFiles no
 
-# reboot
+# IntelliJ
+
+wget -O ~/Downloads/ideaIU-2017.1.3.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.2.tar.gz
+mkdir ~/Apps/IntelliJ-2017.1.3
+
+# TODO: Has to be a better way to do this...
+cp -r Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39/* Apps/IntelliJ-2017.1.3
+rm -rf Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39 ~/Downloads/ideaIU-2017.1.3.tar.gz
+
+tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/IntelliJ-2017.1.3
+cp lib/config/intellij-settings.jar ~/intellij-settings.jar
+
+cp lib/config/studio-settings.jar ~/studio-settings.jar
+
+# Android Studio
+
+sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
+mkdir ~/Apps/Android-Studio
+# TODO: Download + Unzip + move to newly created dir on line #186
+
+# KVM:
+
+sudo apt install -y qemu-kvm libvirt0 libvirt-bin virt-manager bridge-utils
+sudo systemctl enable libvirt-bin
+
+# Install Slack
+
+wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
+sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
+sudo apt -fy install
+
+# Install Calibre
+
+wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('~/Apps/', True)"
+mv ~/Apps/calibre/ ~/Apps/Calibre/
+
