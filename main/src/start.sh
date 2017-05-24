@@ -256,3 +256,8 @@ sudo apt -fy install
 wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('~/Apps/', True)"
 mv ~/Apps/calibre/ ~/Apps/Calibre/
 
+# Install Anki
+
+tar xjf main/src/lib/res/anki-2.0.45-amd64.tar.bz2
+mv anki-2.0.45 ~/Apps/
+mv ~/Apps/anki-2.0.45/ ~/Apps/Anki-2.0.45
