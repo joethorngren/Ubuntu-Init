@@ -129,6 +129,7 @@ echo ""
 echo ""
 
 sudo apt install -y nvidia-375
+# TODO: update xorg.conf
 
 echo ""
 echo ""
