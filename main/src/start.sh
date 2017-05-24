@@ -150,7 +150,7 @@ echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | 
 sudo apt install -y oracle-java8-installer
 
 # System Apps + Tools
-sudo apt install -y curl dconf-editor arandr pavucontrol unzip thunar shutter htop vim timeshift chromium-browser gksu
+sudo apt install -y curl dconf-editor arandr pavucontrol unzip thunar shutter htop vim timeshift chromium-browser gksu terminator
 
 # Git
 sudo apt install -y git git-core git-doc git-gui gitk
@@ -187,6 +187,11 @@ sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libb
 mkdir ~/Apps/Android-Studio
 # TODO: Download + Unzip + move to newly created dir on line #186
 
+# KVM:
+
+sudo apt install -y qemu-kvm libvirt0 libvirt-bin virt-manager bridge-utils
+sudo systemctl enable libvirt-bin
+
 # Install Slack
 
 wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
@@ -201,8 +206,26 @@ mv ~/Apps/calibre/ ~/Apps/Calibre/
 # Z-Shell
 
 # CLI
-sudo apt install -y zsh zsh-doc fonts-powerline
+sudo apt install -y zsh zsh-doc
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# Powerline
+
+sudo apt-get install  -y python-pip
+pip install --upgrade pip
+sudo apt-get upgrade -y
+pip install git+git://github.com/Lokaltog/powerline
+
+# Inside fonts dir
+# wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+# wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+
+# Move to fonts dir: can find via
+#       xset -q
+# TODO: Should I be using this fonts directory, or create and use one from ~/.fonts?
+sudo cp lib/res/fonts/PowerlineSymbols.otf /usr/share/fonts/opentype/
+fc-cache -vf /usr/share/fonts/
+sudo cp lib/res/fonts/10-powerline-symbols.conf /etc/fonts/conf.d/
 
 # i3 Shizz
 
@@ -214,9 +237,6 @@ echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/so
 sudo apt update -y
 sudo apt install -y -f i3 i3blocks i3status i3lock rofi nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
 sudo apt dist-upgrade -y
-
-
-mkdir ~/.fonts
 
 sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 
