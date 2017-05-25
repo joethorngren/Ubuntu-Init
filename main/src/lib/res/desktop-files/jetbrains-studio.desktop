@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Icon=/home/dayfun/Apps/Android-Studio/bin/studio.png
+Exec="/home/dayfun/Apps/Android-Studio/bin/studio.sh" %f
+Comment=The Drive to Develop
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-studio

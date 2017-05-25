@@ -11,9 +11,9 @@ setopt histignorealldups sharehistory
 # Use emacs keybindings even if our EDITOR is set to vi
 # bindkey -e
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+# Keep 100000000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=100000000
-SAVEHIST=1000
+SAVEHIST=100000000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
@@ -85,22 +85,8 @@ fi
 
 zplug load --verbose
 
-export EDITOR=/usr/bin/vim
-
-export MANPATH=/usr/local/man:$MANPATH
-export ANDROID_HOME=${HOME}/Android
-export GRADLE_USER_HOME=${HOME}/.gradle/
-export PYENV_ROOT=${HOME}/.pyenv
-export GOPATH=${HOME}/go
-export GOBIN=${HOME}/go/bin
-
 # Change Java Versions
 
-export JAVA9_HOME=/usr/lib/jvm/java-9-oracle
-export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
-export JAVA_HOME=$JAVA8_HOME
-export JDK_HOME=$JAVA8_HOME
- 
 function go9 {
     export JAVA_HOME=$JAVA9_HOME
     export JDK_HOME=$JAVA_HOME
@@ -114,8 +100,6 @@ function go8 {
     echo "Switched to $JAVA_HOME"
     export PATH="$JAVA_HOME/bin:$PATH"
 }
-
-export PATH=/opt/android-studio/bin:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:/usr/local/bin/studio:${HOME}/bin:${HOME}/Util/buck/bin/:${HOME}/Util/keychain-2.8.2/:${HOME}/Code_Complete/Util/genymotion/:${HOME}/bin/exercism:${HOME}/anaconda3/bin:${HOME}/.rbenv/bin:${HOME}/.rbenv/plugins/ruby-build/bin:${GOPATH}:${GOBIN}:${HOME}/anaconda3/bin:${PATH}
 
 eval `keychain --eval --agents ssh lighthouse_id_rsa`
 

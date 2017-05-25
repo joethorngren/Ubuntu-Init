@@ -97,6 +97,15 @@ sudo add-apt-repository -y ppa:webupd8team/java
 # Timeshift
 sudo apt-add-repository -y ppa:teejee2008/ppa
 
+# kdenlive
+sudo add-apt-repository -y ppa:kdenlive/kdenlive-stable
+
+# Paper Icon Theme
+sudo add-apt-repository -y ppa:snwh/pulp
+
+# Arc Theme
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/arc-theme.list"
+
 # Shutter
 wget -q http://shutter-project.org/shutter-ppa.key -O- | sudo apt-key add -
 
@@ -150,7 +159,8 @@ echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | 
 sudo apt install -y oracle-java8-installer
 
 # System Apps + Tools
-sudo apt install -y curl dconf-editor arandr pavucontrol unzip thunar shutter htop vim timeshift chromium-browser gksu terminator
+sudo apt install -y curl dconf-editor arandr pavucontrol unzip htop vim timeshift  gksu terminator
+sudo apt install -y kdenlive chromium-browser thunar shutter
 
 # Git
 sudo apt install -y git git-core git-doc git-gui gitk
@@ -200,6 +210,11 @@ echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/so
 
 sudo apt update -y
 sudo apt install -y -f i3 i3blocks i3status i3lock rofi nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
+# Themes/Appearance
+sudo apt-get install -y lxappearance gtk-chtheme qt4-qtconfig gtk2-engines-murrine gtk2-engines-pixbuf
+sudo apt-get install -y paper-icon-theme paper-gtk-theme paper-cursor-theme
+
+
 sudo apt dist-upgrade -y
 
 sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
@@ -207,7 +222,8 @@ sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 # Kill Unity
 
 sudo apt autoremove --purge -y compiz compiz-gnome compiz-plugins-default libcompizconfig0
-sudo apt autoremove --purge -y unity unity-common unity-services libunity-misc4 appmenu-gtk appmenu-gtk3 appmenu-qt overlay-scrollbar activity-log-manager-control-center firefox-globalmenu thunderbird-globalmenu
+sudo apt autoremove --purge -y unity unity-common unity-services libunity-misc4 appmenu-gtk
+sudo apt autoremove --purge -y appmenu-gtk3 appmenu-qt overlay-scrollbar activity-log-manager-control-center firefox-globalmenu thunderbird-globalmenu
 sudo apt autoremove
 sudo apt autoclean
 
