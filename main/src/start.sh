@@ -40,7 +40,6 @@ function addAptRepo() {
 
 }
 
-
 function initializeFileSystem() {
 
     updateStatus "Initializing file system..."
@@ -63,15 +62,46 @@ function copyIntelliJAndStudioSettingsJars() {
 }
 
 
+function displayNvidiaPrompt() {
+
+    echo "Do you wish to install this NVIDIA drivers (y/n)?" answer
+    case ${answer:0:1} in
+        y|Y )
+            export INSTALL_NVIDIA=true
+        ;;
+        * )
+
+        ;;
+    esac
+
+}
+
 function initializeRepositories() {
 
     updateStatus "Adding repositories..."
 
-    addAptRepo "ppa:graphics-drivers/ppa"           # Nvidia
+
+    if [ -n "$INSTALL_NVIDIA" ]; then
+        echo "Adding ppa:graphics-drivers/ppa"
+        addAptRepo "ppa:graphics-drivers/ppa";           # Nvidia
+    else
+        echo "Not installing Nvidia drivers, skipping ppa:graphics-drivers/ppa"
+    fi
+
+
+    echo "Adding ppa:git-core/ppa"
     addAptRepo "ppa:git-core/ppa"                   # Git
+
+    echo "Adding ppa:webupd8team/java"
     addAptRepo "ppa:webupd8team/java"               # Java
+
+    echo "Adding ppa:git-core/ppa"
     addAptRepo "ppa:teejee2008/ppa"                 # Timeshift
+
+    echo "ppa:kdenlive/kdenlive-stable"
     addAptRepo "ppa:kdenlive/kdenlive-stable"       # KdenLive
+
+    echo "Adding ppa:ubuntuhandbook1/audacity"
     addAptRepo "ppa:ubuntuhandbook1/audacity"       # Audacity
 
 
@@ -88,17 +118,22 @@ function initializeRepositories() {
 
 }
 
-function displayNvidiaPrompt() {
+function installNvidiaDrivers() {
 
-    echo "Do you wish to install this NVIDIA drivers (y/n)?" answer
-    case ${answer:0:1} in
-        y|Y )
-            export INSTALL_NVIDIA=true
-        ;;
-        * )
-            export INSTALL_NVIDIA=false
-        ;;
-    esac
+    if [ -n "$INSTALL_NVIDIA" ]; then
+        updateStatus "Purging Existing Nvidia Drivers..."
+
+        sudo apt-get purge -y nvidia-*
+
+        updateStatus "Done Purging Existing Nvidia Drivers..."
+
+        updateStatus "Installing Nvdia 375 Drivers"
+
+        sudo apt install -y nvidia-375
+        # TODO: update xorg.conf
+
+        updateStatus "Done Installing Nvdia 375 Drivers"
+    fi
 
 }
 
@@ -330,6 +365,8 @@ autoRemoveAndClean
 
 displayNvidiaPrompt
 initializeRepositories
+installNvidiaDrivers
+
 
 updateAllTheThings
 
