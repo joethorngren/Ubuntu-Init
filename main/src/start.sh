@@ -370,8 +370,6 @@ function continuePrompt() {
 
 }
 
-continuePrompt
-
 updateAllTheThings
 
 continuePrompt
