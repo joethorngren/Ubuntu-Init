@@ -64,16 +64,12 @@ function copyIntelliJAndStudioSettingsJars() {
 
 function displayNvidiaPrompt() {
 
-    echo "Do you wish to install this NVIDIA drivers (y/n)?" answer
+    read -p "Do you wish to install this NVIDIA drivers (y/n)?" answer
     case ${answer:0:1} in
         y|Y )
             export INSTALL_NVIDIA=true
         ;;
-        * )
-
-        ;;
     esac
-
 }
 
 function initializeRepositories() {
@@ -360,19 +356,44 @@ function installAnki() {
 
 }
 
+function continuePrompt() {
+
+    read -p "Do you wish to continue? " answer
+    case ${answer:0:1} in
+        y|Y )
+            export CONTINUE="yes"
+        ;;
+        * )
+            return 255
+        ;;
+    esac
+
+}
+
+continuePrompt
+
 updateAllTheThings
+
+continuePrompt
 autoRemoveAndClean
 
+continuePrompt
 displayNvidiaPrompt
+
+continuePrompt
 initializeRepositories
+
+continuePrompt
 installNvidiaDrivers
 
-
+continuePrompt
 updateAllTheThings
 
-
+continuePrompt
 installSoftware
 
+continuePrompt
 copyIntelliJAndStudioSettingsJars
-initializeDotFiles
 
+continuePrompt
+initializeDotFiles
