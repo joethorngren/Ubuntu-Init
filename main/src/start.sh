@@ -1,58 +1,66 @@
 #!/bin/bash
 
-updateStatus "Updating..."
-sudo apt-get update -y
-updateStatus "Done Updating!"
+function updateStatus() {
+
+    echo ""
+    echo ""
+    echo "***********"
+    echo "$1"
+    echo "***********"
+    echo ""
+    echo ""
+
+}
+
+function updateAllTheThings() {
+
+    updateStatus "Updating & Upgrading..."
+
+    sudo apt update -y
+    sudo apt upgrade -y
+    sudo apt dist-upgrade -y
+
+    updateStatus "Done Updating & Upgrading!"
+
+}
+
+function autoRemoveAndClean() {
+
+    updateStatus "Cleaning up!"
+
+    sudo apt-get autoremove -y
+    sudo apt-get autoclean -y
+
+    updateStatus "Done Cleaning up!"
+}
+
+function addAptRepo() {
+
+    sudo apt-add-repository -y "$1"
+
+}
 
 
-updateStatus "Upgrading..."
-sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
-updateStatus "Done Upgrading!"
+function initializeFileSystem() {
 
-updateStatus "Cleaning House..."
-autoRemoveAndClean
-updateStatus "Done Cleaning House!"
+    updateStatus "Initializing file system..."
 
-updateStatus "Initializing file system..."
-rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
-mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
-cp lib/config/1x2x1.sh ~/.screenlayout/
-updateStatus "File system initialized!"
+    rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
+    mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
+    cp lib/config/1x2x1.sh ~/.screenlayout/
 
-initializeRepositories
+    updateStatus "File system initialized!"
+}
 
+function copyIntelliJAndStudioSettingsJars() {
 
-echo ""
-echo ""
-echo "***********"
-echo "Updating..."
-echo "***********"
-echo ""
-echo ""
+    updateStatus "Copying IntelliJ and Android Studio JAR files..."
 
-sudo apt update -y
+    cp lib/config/intellij-settings.jar ~/intellij-settings.jar
+    cp lib/config/studio-settings.jar ~/studio-settings.jar
 
-echo ""
-echo ""
-echo "Done updating!"
-echo ""
-echo ""
-
-echo "***********"
-echo "Updating Nvidia Drivers..."
-echo "***********"
-echo ""
-echo ""
-sudo apt-get purge nvidia-*
-sudo apt install -y nvidia-375
-# TODO: update xorg.conf
-
-installSoftware
-
-cp lib/config/intellij-settings.jar ~/intellij-settings.jar
-cp lib/config/studio-settings.jar ~/studio-settings.jar
-
-initializeDotFiles
+    updateStatus "Done Copying IntelliJ and Android Studio JAR files..."
+}
 
 
 function initializeRepositories() {
@@ -80,6 +88,20 @@ function initializeRepositories() {
 
 }
 
+function displayNvidiaPrompt() {
+
+    echo "Do you wish to install this NVIDIA drivers (y/n)?" answer
+    case ${answer:0:1} in
+        y|Y )
+            export INSTALL_NVIDIA=true
+        ;;
+        * )
+            export INSTALL_NVIDIA=false
+        ;;
+    esac
+
+}
+
 function installSoftware() {
 
     updateStatus "Installing Software..."
@@ -101,7 +123,6 @@ function installSoftware() {
     updateStatus "Done Installing Software..."
 
 }
-
 
 function installSystemSoftware() {
 
@@ -182,6 +203,7 @@ function installZsh() {
 
 
 }
+
 function installI3() {
 
     updateStatus "Installing i3!"
@@ -303,30 +325,17 @@ function installAnki() {
 
 }
 
-function updateStatus() {
+updateAllTheThings
+autoRemoveAndClean
 
-    echo ""
-    echo ""
-    echo "***********"
-    echo "$1"
-    echo "***********"
-    echo ""
-    echo ""
+displayNvidiaPrompt
+initializeRepositories
 
-}
+updateAllTheThings
 
-function autoRemoveAndClean() {
 
-    updateStatus "Cleaning up!"
+installSoftware
 
-    sudo apt-get autoremove -y
-    sudo apt-get autoclean -y
+copyIntelliJAndStudioSettingsJars
+initializeDotFiles
 
-    updateStatus "Done Cleaning up!"
-}
-
-function addAptRepo() {
-
-    sudo apt-add-repository -y "$1"
-
-}
