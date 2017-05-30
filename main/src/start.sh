@@ -106,6 +106,9 @@ function initializeRepositories() {
     echo "Adding ppa:ubuntuhandbook1/audacity"
     addAptRepo "ppa:ubuntuhandbook1/audacity"       # Audacity
 
+    echo "Adding ppa:gwendal-lebihan-dev/hexchat-stable"
+    addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"
+
 
     # Paper Icon Theme
     # sudo add-apt-repository -y ppa:snwh/pulp
@@ -169,9 +172,9 @@ function installSystemSoftware() {
 
     updateStatus "Done Installing curl, dconf-editor, arandr, pavucontrol, unzip, htop, vim, timeshift, gksu, & terminator!"
 
-    updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, & audacity!"
+    updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & hexchat!"
 
-    sudo apt install -y kdenlive chromium-browser thunar shutter audacity
+    sudo apt install -y kdenlive chromium-browser thunar shutter audacity hexchat
 
     updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, & audacity!"
 
