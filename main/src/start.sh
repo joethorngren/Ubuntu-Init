@@ -1,107 +1,36 @@
 #!/bin/bash
 
-echo ""
-echo ""
-echo "***********"
-echo "Updating..."
-echo "***********"
-echo ""
-echo ""
-
+updateStatus "Updating..."
 sudo apt-get update -y
+updateStatus "Done Updating!"
 
-echo ""
-echo ""
-echo "Done updating!"
-echo ""
-echo ""
 
-echo ""
-echo ""
-echo "***********"
-echo "Upgrading..."
-echo "***********"
-echo ""
-echo ""
-
+updateStatus "Upgrading..."
 sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
+updateStatus "Done Upgrading!"
 
-echo ""
-echo ""
-echo "Done upgrading!"
-echo ""
-echo ""
-
-echo ""
-echo ""
-echo "***********"
-echo "Cleaning house..."
-echo "***********"
-echo ""
-echo ""
-
-sudo apt-get purge nvidia-*
+updateStatus "Cleaning House..."
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
+updateStatus "Done Cleaning House!"
 
-echo ""
-echo ""
-echo "Done cleaning!"
-echo ""
-echo ""
-
-echo ""
-echo ""
-echo "***********"
-echo "Initializing file system..."
-echo "***********"
-echo ""
-echo ""
-
-
+updateStatus "Initializing file system..."
 rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
 mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
 cp lib/config/1x2x1.sh ~/.screenlayout/
+updateStatus "File system initialized!"
 
-echo ""
-echo ""
-echo "File system initialized!"
-echo ""
-echo ""
+updateStatus "Adding repositories..."
 
-echo ""
-echo ""
-echo "***********"
-echo "Adding repositories..."
-echo "***********"
-echo ""
-echo ""
+addAptRepo "ppa:graphics-drivers/ppa"           # Nvidia
+addAptRepo "ppa:git-core/ppa"                   # Git
+addAptRepo "ppa:webupd8team/java"               # Java
+addAptRepo "ppa:teejee2008/ppa"                 # Timeshift
+addAptRepo "ppa:kdenlive/kdenlive-stable"       # KdenLive
 
-
-# zsh-completions
-# sudo sh -c "echo 'deb http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-completions/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/zsh-completions.list"
-
-# Add zsh-completions repo key to apt
-# wget -nv http://download.opensuse.org/repositories/shells:zsh-users:zsh-completions/xUbuntu_16.04/Release.key -O Release.key
-# sudo apt-key add - < Release.key
-
-# Nvidia
-sudo add-apt-repository -y ppa:graphics-drivers/ppa
-
-# Git
-sudo add-apt-repository -y ppa:git-core/ppa
-
-# Java
-sudo add-apt-repository -y ppa:webupd8team/java
-
-# Timeshift
-sudo apt-add-repository -y ppa:teejee2008/ppa
-
-# kdenlive
-sudo add-apt-repository -y ppa:kdenlive/kdenlive-stable
 
 # Paper Icon Theme
-sudo add-apt-repository -y ppa:snwh/pulp
+# sudo add-apt-repository -y ppa:snwh/pulp
 
 # Arc Theme
 sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/arc-theme.list"
@@ -109,11 +38,8 @@ sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/
 # Shutter
 wget -q http://shutter-project.org/shutter-ppa.key -O- | sudo apt-key add -
 
-echo ""
-echo ""
-echo "Repositories added!"
-echo ""
-echo ""
+updateStatus "Repositories added!"
+
 
 echo ""
 echo ""
@@ -136,7 +62,7 @@ echo "Updating Nvidia Drivers..."
 echo "***********"
 echo ""
 echo ""
-
+sudo apt-get purge nvidia-*
 sudo apt install -y nvidia-375
 # TODO: update xorg.conf
 
@@ -277,3 +203,20 @@ mv ~/Apps/calibre/ ~/Apps/Calibre/
 tar xjf main/src/lib/res/anki-2.0.45-amd64.tar.bz2
 mv anki-2.0.45 ~/Apps/
 mv ~/Apps/anki-2.0.45/ ~/Apps/Anki-2.0.45
+
+function updateStatus() {
+
+    echo ""
+    echo ""
+    echo "***********"
+    echo "$1"
+    echo "***********"
+    echo ""
+    echo ""
+
+}
+
+function addAptRepo() {
+
+    sudo apt-add-repository -y "$1"
+}
