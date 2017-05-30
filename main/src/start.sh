@@ -85,29 +85,33 @@ function initializeRepositories() {
 
     if [ -n "$INSTALL_NVIDIA" ]; then
         echo "Adding ppa:graphics-drivers/ppa"
-        addAptRepo "ppa:graphics-drivers/ppa";           # Nvidia
+        addAptRepo "ppa:graphics-drivers/ppa";                                                      # Nvidia
     else
         echo "Not installing Nvidia drivers, skipping ppa:graphics-drivers/ppa"
     fi
 
 
     echo "Adding ppa:git-core/ppa"
-    addAptRepo "ppa:git-core/ppa"                   # Git
+    addAptRepo "ppa:git-core/ppa"                                                                  # Git
 
     echo "Adding ppa:webupd8team/java"
-    addAptRepo "ppa:webupd8team/java"               # Java
+    addAptRepo "ppa:webupd8team/java"                                                              # Java
 
     echo "Adding ppa:git-core/ppa"
-    addAptRepo "ppa:teejee2008/ppa"                 # Timeshift
+    addAptRepo "ppa:teejee2008/ppa"                                                                # Timeshift
 
     echo "ppa:kdenlive/kdenlive-stable"
-    addAptRepo "ppa:kdenlive/kdenlive-stable"       # KdenLive
+    addAptRepo "ppa:kdenlive/kdenlive-stable"                                                      # KdenLive
 
     echo "Adding ppa:ubuntuhandbook1/audacity"
-    addAptRepo "ppa:ubuntuhandbook1/audacity"       # Audacity
+    addAptRepo "ppa:ubuntuhandbook1/audacity"                                                      # Audacity
 
     echo "Adding ppa:gwendal-lebihan-dev/hexchat-stable"
-    addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"
+    addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"                                            # Hexchat
+
+
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+    sh -c "echo deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 
     # Paper Icon Theme
@@ -172,11 +176,11 @@ function installSystemSoftware() {
 
     updateStatus "Done Installing curl, dconf-editor, arandr, pavucontrol, unzip, htop, vim, timeshift, gksu, & terminator!"
 
-    updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & hexchat!"
+    updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, hexchat, & Spotify!"
 
-    sudo apt install -y kdenlive chromium-browser thunar shutter audacity hexchat
+    sudo apt install -y kdenlive chromium-browser thunar shutter audacity hexchat spotify-client
 
-    updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, & audacity!"
+    updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & Spotify!"
 
 }
 
@@ -362,6 +366,18 @@ function installAnki() {
     mv ~/Apps/anki-2.0.45/ ~/Apps/Anki-2.0.45
 
     updateStatus "Done Installing Anki!"
+
+}
+
+function installSpotfy() {
+
+    updateStatus "Installing Spotify!"
+
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+
+
+
+    updateStatus "Done Installing Spotify!"
 
 }
 
