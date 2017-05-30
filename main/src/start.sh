@@ -12,6 +12,11 @@ function updateStatus() {
 
 }
 
+function promptUserName() {
+    read -p "Please enter your username: " userName
+    export USER_NAME=
+}
+
 function updateAllTheThings() {
 
     updateStatus "Updating & Upgrading..."
@@ -44,6 +49,7 @@ function initializeFileSystem() {
 
     updateStatus "Initializing file system..."
 
+    echo "Removing: "
     rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
     mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
     cp lib/config/1x2x1.sh ~/.screenlayout/
@@ -370,6 +376,11 @@ function continuePrompt() {
 
 }
 
+# promptPassword
+
+updateStatus "Turning on Debugging!"
+set -x
+
 updateAllTheThings
 
 continuePrompt
@@ -395,3 +406,6 @@ copyIntelliJAndStudioSettingsJars
 
 continuePrompt
 initializeDotFiles
+
+updateStatus "Turning off Debugging!"
+set +x
