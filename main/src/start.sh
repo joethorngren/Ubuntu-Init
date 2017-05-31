@@ -109,6 +109,15 @@ function initializeRepositories() {
     echo "Adding ppa:gwendal-lebihan-dev/hexchat-stable"
     addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"                                            # Hexchat
 
+    echo "ppa:webupd8team/y-ppa-manager"                                                           # Y PPA Manager
+    addAptRepo "ppa:webupd8team/y-ppa-manager"
+
+
+    # TODO: Add these?
+    # SimpleScreenRecorder (ppa:inkscape.dev/stable)
+    # OpenShot (ppa:openshot.developers/ppa)
+    # GIMP (ppa:otto-kesselgulasch/gimp)
+    # Inkscape (ppa:inkscape.dev/stable)
 
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     sh -c "echo deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -170,17 +179,54 @@ function installSoftware() {
 
 function installSystemSoftware() {
 
-    updateStatus "Installing curl, dconf-editor, arandr, pavucontrol, unzip, htop, vim, timeshift, gksu, & terminator!"
+    installSoundShit
 
-    sudo apt install -y curl dconf-editor arandr pavucontrol unzip htop vim timeshift  gksu terminator
+    updateStatus "Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
+    sudo apt install -y curl dconf-editor arandr unzip htop vim
+    updateStatus "Done Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
 
-    updateStatus "Done Installing curl, dconf-editor, arandr, pavucontrol, unzip, htop, vim, timeshift, gksu, & terminator!"
+    updateStatus "Installing timeshift, gksu, terminator, y-ppa-manager, & synaptic!"
+    sudo apt install -y timeshift gksu terminator gksu terminator y-ppa-manager synaptic
+    updateStatus "Done Installing timeshift, gksu, terminator, y-ppa-manager, & synaptic!"
 
     updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, hexchat, & Spotify!"
-
     sudo apt install -y kdenlive chromium-browser thunar shutter audacity hexchat spotify-client
-
     updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & Spotify!"
+
+}
+
+function installSoundShit() {
+
+    updateStatus "Installing Sound Shit..."
+    sudo apt install -y linux-lowlatency  # audacity qjackctl
+
+    sudo apt install -y pulseaudio-module-jack pavucontrol paprefs
+    # installKxStudio
+
+    updateStatus "Done Installing Sound Shit"
+}
+
+function installKxStudio() {
+
+    # TODO: Already installed???
+
+    # Install required dependencies if needed
+    # sudo apt-get install -y apt-transport-https software-properties-common wget
+
+    # Download package file
+    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_9.4.1~kxstudio1_all.deb
+
+    # Install it
+    # sudo dpkg -i kxstudio-repos_9.4.1~kxstudio1_all.deb
+
+    # Install required dependencies if needed
+    # sudo apt-get install -y libglibmm-2.4-1v5
+
+    # Download package file
+    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+
+    # Install it
+    # sudo dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
 
 }
 
