@@ -54,6 +54,24 @@ function initializeFileSystem() {
     mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
     cp lib/config/1x2x1.sh ~/.screenlayout/
 
+    updateStatus "Configuring NAS shit..."
+
+    sudo apt-get install -y python3-pip
+    # TODO: Use whatever the username is...
+    # TODO: Need to create directories and/or check that they exist
+
+
+
+    sudo apt install cifs-utils nfs-common
+    sudo mkdir /media/dayfun/Archives
+    sudo chown dayfun:dayfun /media/dayfun/Archives
+    sudo mount -t nfs 192.168.1.100:/volume1/Archives /media/dayfun/Archives
+
+    # TODO: Figure out what to do with .desktop file + i3?
+    # TODO: Update Icon + update to whatever username is...
+    # TODO: Symbolic link to shared drives + folders in Home Directory?
+    # TODO: Have to mount after every reboot?
+
     updateStatus "File system initialized!"
 }
 
@@ -90,7 +108,6 @@ function initializeRepositories() {
         echo "Not installing Nvidia drivers, skipping ppa:graphics-drivers/ppa"
     fi
 
-
     echo "Adding ppa:git-core/ppa"
     addAptRepo "ppa:git-core/ppa"                                                                  # Git
 
@@ -112,6 +129,7 @@ function initializeRepositories() {
     echo "ppa:webupd8team/y-ppa-manager"                                                           # Y PPA Manager
     addAptRepo "ppa:webupd8team/y-ppa-manager"
 
+    installNitrogen
 
     # TODO: Add these?
     # SimpleScreenRecorder (ppa:inkscape.dev/stable)
@@ -133,6 +151,19 @@ function initializeRepositories() {
     wget -q http://shutter-project.org/shutter-ppa.key -O- | sudo apt-key add -
 
     updateStatus "Repositories added!"
+
+}
+
+function installNitrogen() {
+
+#    In your terminal,
+
+# sudo nano /etc/apt/sources.list
+
+# add this two lines to the end of the file.
+
+# deb http://ppa.launchpad.net/k-belding/ubuntu intrepid main
+# deb-src http://ppa.launchpad.net/k-belding/ubuntu intrepid mai
 
 }
 
@@ -159,11 +190,13 @@ function installSoftware() {
 
     updateStatus "Installing Software..."
 
+    installSoundShit
     installSystemSoftware
     installGit
     installIntelliJ
     installAndroidStudio
     installKvm
+    installPomello
     installSlack
     installCalibre
     installAnki
@@ -178,8 +211,6 @@ function installSoftware() {
 }
 
 function installSystemSoftware() {
-
-    installSoundShit
 
     updateStatus "Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
     sudo apt install -y curl dconf-editor arandr unzip htop vim
@@ -198,10 +229,13 @@ function installSystemSoftware() {
 function installSoundShit() {
 
     updateStatus "Installing Sound Shit..."
-    sudo apt install -y linux-lowlatency  # audacity qjackctl
+    sudo apt install -y linux-lowlatency
 
     sudo apt install -y pulseaudio-module-jack pavucontrol paprefs
+
     # installKxStudio
+
+    sudo apt install -y audacity qjackctl # Jack install autoconfigures shit from Step #2 in:
 
     updateStatus "Done Installing Sound Shit"
 }
@@ -209,15 +243,6 @@ function installSoundShit() {
 function installKxStudio() {
 
     # TODO: Already installed???
-
-    # Install required dependencies if needed
-    # sudo apt-get install -y apt-transport-https software-properties-common wget
-
-    # Download package file
-    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_9.4.1~kxstudio1_all.deb
-
-    # Install it
-    # sudo dpkg -i kxstudio-repos_9.4.1~kxstudio1_all.deb
 
     # Install required dependencies if needed
     # sudo apt-get install -y libglibmm-2.4-1v5
@@ -377,6 +402,15 @@ function installKvm() {
     sudo systemctl enable libvirt-bin
 
     updateStatus "Done Installing Kvm!"
+
+}
+
+function installPomello() {
+
+    # TODO: figure out how to convert link from website (https://pomelloapp.com/download/linux?package=deb&arch=64) to wget
+    # TODO: for now, using 0.8.2 located in src/lib/res
+     sudo dpkg -i
+
 
 }
 

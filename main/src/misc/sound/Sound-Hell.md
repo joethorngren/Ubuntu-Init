@@ -131,4 +131,4 @@ Description
 jackd is the JACK audio server daemon, a low-latency audio server. Originally written for the GNU/Linux operating system, it also supports Mac OS X and various Unix platforms. JACK can connect a number of different client applications to an audio device and also to each other. Most clients are external, running in their own processes as normal applications. JACK also supports internal clients, which run within the jackd process using a loadable "plugin" interface.
 JACK differs from other audio servers in being designed from the ground up for professional audio work. It focuses on two key areas: synchronous execution of all clients, and low latency operation.
 
-![Configure Jack](jack-configure_1.png)
+![Configure Jack](jack-configure.png)
