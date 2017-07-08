@@ -357,7 +357,11 @@ function installZsh() {
     updateStatus "Installing ZSH!"
 
     sudo apt install -y zsh zsh-doc
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/loket/oh-my-zsh/feature/batch-mode/tools/install.sh)" -s --batch || {
+        echo "Could not install Oh My Zsh" >/dev/stderr
+        exit 1
+    }
 
     updateStatus "Done Installing ZSH!"
 }
