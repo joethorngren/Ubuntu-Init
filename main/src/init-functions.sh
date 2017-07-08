@@ -44,16 +44,13 @@ function initializeFileSystem() {
 
     updateStatus "Initializing file system..."
 
-    echo "Removing: "
+    echo "Removing: ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop"
     rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
-    mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin
-    cp lib/config/1x2x1.sh ~/.screenlayout/
+    mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin ~/.fonts
+
+    # cp lib/config/1x2x1.sh ~/.screenlayout/
 
     updateStatus "Configuring NAS shit..."
-
-    sudo apt-get install -y python3-pip
-    # TODO: Use whatever the username is...
-    # TODO: Need to create directories and/or check that they exist
 
     read -p "Do you wish to configure LightHouse Web NAS (y/n)?" answer
     case ${answer:0:1} in
@@ -66,7 +63,7 @@ function initializeFileSystem() {
 }
 
 function configureLightHouseWebNas() {
-    sudo apt install cifs-utils nfs-common
+    sudo apt install -y cifs-utils nfs-common
     sudo mkdir ~/Archives
     sudo chown ${USER}:${USER} ~/Archives
     sudo mount -t nfs 192.168.1.100:/volume1/Archives ~/Archives
@@ -104,11 +101,12 @@ function initializeRepositories() {
 
     updateStatus "Adding repositories..."
 
-    read -p "Install tlp (y/n)?" answer
+    read -p "Install laptop tools (tlp + touchpad indicator) (y/n)?" answer
     case ${answer:0:1} in
        y|Y )
 	     addAptRepo "ppa:linrunner/tlp"
-	     export INSTALL_TLP=true
+	     addAptRepo "ppa:atareao/atareao"
+	     export INSTALL_LAPTOP_TOOLS=true
 	;;
     esac
 
@@ -168,8 +166,8 @@ function initializeRepositories() {
     #
     # 
 
-    # addI3wmRepo
-    # addSpotifyRepo
+    addI3wmRepo
+    addSpotifyRepo
 
     updateStatus "Repositories added!"
 }
@@ -229,8 +227,8 @@ function installSoftware() {
 	;;
     esac
 
-    if [ -n "$INSTALL_TLP" ]; then
-        installTlp
+    if [ -n "${INSTALL_LAPTOP_TOOLS}" ]; then
+        installLaptopTools
     fi
 
     installSystemSoftware
@@ -238,12 +236,13 @@ function installSoftware() {
     installIntelliJ
     installAndroidStudio
     installKvm
-    installPomello
+    #installPomello
     installSlack
     installCalibre
-    installAnki
-    installZsh
+    # installAnki
     installI3wm
+    installZsh
+    installPowerLine
 
     # Purgatory:
     # screenkey, ubuntu-mate-welcome, zsh-completions
@@ -274,9 +273,9 @@ function installSoundShit() {
     updateStatus "Done Installing Sound Shit"
 }
 
-function installTlp() {
+function installLaptopTools() {
     sudo apt-get remove laptop-mode-tools
-    sudo apt-get install tlp tlp-rdw smartmontools ethtool
+    sudo apt-get install -y tlp tlp-rdw smartmontools ethtool touchpad-indicator
 
     # Start TLP Service for the first time only. You don’t need to start it on every reboot, it will start automatically:
     sudo tlp start
@@ -300,19 +299,6 @@ function installSystemSoftware() {
     updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & Spotify!"
 
 }
-
-	#function installKxStudio() {
-	    # TODO: Already installed???
-
-	    # Install required dependencies if needed
-	    # sudo apt-get install -y libglibmm-2.4-1v5
-
-	    # Download package file
-	    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
-
-	    # Install it
-	    # sudo dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
-	#}
 
 function installGit() {
 
@@ -346,8 +332,8 @@ function installPowerLine() {
 
     updateStatus "Installing PowerLine!"
 
-    sudo apt-get install  -y python-pip
-    pip install --upgrade pip
+    sudo apt-get install  -y python3-pip
+    pip3 install --upgrade pip
     sudo apt-get upgrade -y
     pip3 install git+git://github.com/Lokaltog/powerline
 
@@ -357,11 +343,12 @@ function installPowerLine() {
 
     # Move to fonts dir: can find via
     #       xset -q
-    # TODO: Should I be using this fonts directory, or create and use one from ~/.fonts?
-    sudo cp lib/res/fonts/PowerlineSymbols.otf /usr/share/fonts/opentype/
-    fc-cache -vf /usr/share/fonts/
-    sudo cp lib/res/fonts/10-powerline-symbols.conf /etc/fonts/conf.d/
 
+    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/PowerlineSymbols.otf /usr/share/fonts/opentype/
+    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/10-powerline-symbols.conf /etc/fonts/conf.d/
+    sudo fc-cache -vf
+
+    # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
     updateStatus "Done Installing PowerLine!"
 
 }
@@ -374,8 +361,6 @@ function installZsh() {
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
     updateStatus "Done Installing ZSH!"
-
-
 }
 
 function installI3wm() {
@@ -386,8 +371,7 @@ function installI3wm() {
     sudo apt install -y -f i3 i3blocks i3status i3lock rofi nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
     # Themes/Appearance
     sudo apt-get install -y lxappearance gtk-chtheme qt4-qtconfig gtk2-engines-murrine gtk2-engines-pixbuf
-    sudo apt-get install -y paper-icon-theme paper-gtk-theme paper-cursor-theme
-
+    # sudo apt-get install -y paper-icon-theme paper-gtk-theme paper-cursor-theme
 
     sudo apt dist-upgrade -y
 
@@ -401,7 +385,7 @@ function installI3wm() {
     sudo apt autoremove
     sudo apt autoclean
 
-    updateStatus "Installing i3: Done Killing Unity!"
+    # updateStatus "Installing i3: Done Killing Unity!"
     # the following command will disable the desktop (we won't need it with i3!)
     gsettings set org.gnome.desktop.background show-desktop-icons false
 
@@ -413,9 +397,10 @@ function initializeDotFiles() {
 
     updateStatus "Initializing Dot Files!"
 
-    git clone --bare https://github.com/joethorngren/Dotfiles.git .dotfiles/
-    alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+    git clone --bare https://github.com/joethorngren/Dotfiles.git ~/.dotfiles/
+    alias dotfiles="/usr/bin/git --git-dir=${HOME}/.dotfiles/ --work-tree=${HOME}"
     dotfiles config status.showUntrackedFiles no
+    dotfiles checkout
 
     updateStatus "Done Initializing Dot Files!"
 
@@ -459,14 +444,11 @@ function installKvm() {
 
 }
 
-function installPomello() {
-
-    # TODO: figure out how to convert link from website (https://pomelloapp.com/download/linux?package=deb&arch=64) to wget
-    # TODO: for now, using 0.8.2 located in src/lib/res
-     sudo dpkg -i
-
-
-}
+# function installPomello() {
+#    # TODO: figure out how to convert link from website (https://pomelloapp.com/download/linux?package=deb&arch=64) to wget
+#    # TODO: for now, using 0.8.2 located in src/lib/res
+#     sudo dpkg -i
+# }
 
 function installSlack() {
 
@@ -507,9 +489,7 @@ function installSpotify() {
 
     updateStatus "Installing Spotify!"
 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
-
-
+    sudo apt-get install -y spotify-client
 
     updateStatus "Done Installing Spotify!"
 
@@ -528,3 +508,16 @@ function continuePrompt() {
     esac
 
 }
+
+	#function installKxStudio() {
+	    # TODO: Already installed???
+
+	    # Install required dependencies if needed
+	    # sudo apt-get install -y libglibmm-2.4-1v5
+
+	    # Download package file
+	    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+
+	    # Install it
+	    # sudo dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+	#}
