@@ -152,6 +152,9 @@ function initializeRepositories() {
     echo "ppa:webupd8team/y-ppa-manager"
     addAptRepo "ppa:webupd8team/y-ppa-manager"
 
+    echo "ppa:shutter/ppa"
+    addAptRepo "ppa:shutter/ppa"
+
     # TODO: Add these?
     # SimpleScreenRecorder (ppa:inkscape.dev/stable)
     # OpenShot (ppa:openshot.developers/ppa)
@@ -167,8 +170,6 @@ function initializeRepositories() {
 
     # addI3wmRepo
     # addSpotifyRepo
-    # addShutterRepo
-    # Shutter
 
     updateStatus "Repositories added!"
 }
@@ -183,10 +184,6 @@ function addI3wmRepo() {
 function addSpotifyRepo() {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-}
-
-function addShutterRepo() {
-    wget -q http://shutter-project.org/shutter-ppa.key -O- | sudo apt-key add -
 }
 
 	#function installNitrogen() {
