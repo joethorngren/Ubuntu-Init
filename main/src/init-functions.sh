@@ -165,12 +165,20 @@ function initializeRepositories() {
     #
     # 
 
+    # addI3wmRepo
     # addSpotifyRepo
     # addShutterRepo
     # Shutter
 
     updateStatus "Repositories added!"
 }
+
+function addI3wmRepo() {
+    /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2017.01.02_all.deb ~/bin/i3-keyring.deb SHA256:4c3c6685b1181d83efe3a479c5ae38a2a44e23add55e16a328b8c8560bf05e5f
+    sudo apt install -y ~/bin/i3-keyring.deb
+    echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/sources.list.d/sur5r-i3.list
+}
+
 
 function addSpotifyRepo() {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
@@ -376,11 +384,6 @@ function installI3wm() {
 
     updateStatus "Installing i3!"
 
-    /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2017.01.02_all.deb ~/bin/i3-keyring.deb SHA256:4c3c6685b1181d83efe3a479c5ae38a2a44e23add55e16a328b8c8560bf05e5f
-    sudo apt install -y ~/bin/i3-keyring.deb
-
-    echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/sources.list.d/sur5r-i3.list
-
     sudo apt update -y
     sudo apt install -y -f i3 i3blocks i3status i3lock rofi nitrogen compton lightdm-gtk-greeter lightdm-gtk-greeter-settings
     # Themes/Appearance
@@ -393,10 +396,10 @@ function installI3wm() {
     sudo dpkg -i ./lib/res/deb/playerctl-0.5.0_amd64.deb
 
     # Kill Unity
-    updateStatus "Installing i3: Killing Unity"
-    sudo apt autoremove --purge -y compiz compiz-gnome compiz-plugins-default libcompizconfig0
-    sudo apt autoremove --purge -y unity unity-common unity-services libunity-misc4 appmenu-gtk
-    sudo apt autoremove --purge -y appmenu-gtk3 appmenu-qt overlay-scrollbar activity-log-manager-control-center firefox-globalmenu thunderbird-globalmenu
+    # updateStatus "Installing i3: Killing Unity"
+    # sudo apt autoremove --purge -y compiz compiz-gnome compiz-plugins-default libcompizconfig0
+    # sudo apt autoremove --purge -y unity unity-common unity-services libunity-misc4 appmenu-gtk
+    # sudo apt autoremove --purge -y appmenu-gtk3 appmenu-qt overlay-scrollbar activity-log-manager-control-center firefox-globalmenu thunderbird-globalmenu
     sudo apt autoremove
     sudo apt autoclean
 
