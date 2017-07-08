@@ -264,6 +264,7 @@ function installSoundShit() {
 
     # TODO: Kdenlive vs. kxstudio?
     if [ -n "$INSTALL_KDEN" ]; then
+       echo "Installing kx studio" 
        # installKxStudio
     fi
 
