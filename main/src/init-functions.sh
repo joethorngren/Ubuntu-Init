@@ -102,7 +102,6 @@ function displayNvidiaPrompt() {
             export INSTALL_NVIDIA=true
 	    read -p "Version: " answer
             export NVIDIA_VERSION=${answer}
-	    echo "Nvidia version = ${NVIDIA_VERSION}"
         ;;
     esac
 }
@@ -133,13 +132,19 @@ function initializeRepositories() {
         y|Y )
 	   echo "ppa:kdenlive/kdenlive-stable"
            addAptRepo "ppa:kdenlive/kdenlive-stable"
+	   export INSTALL_KDEN=true
 	;;
     esac
 
-    
-    echo "Adding ppa:ubuntuhandbook1/audacity"
-    addAptRepo "ppa:ubuntuhandbook1/audacity"
-
+    read -p "Do you wish to install Audacity (y/n)?" answer
+    case ${answer:0:1} in
+        y|Y )
+	  echo "Adding ppa:ubuntuhandbook1/audacity"
+          addAptRepo "ppa:ubuntuhandbook1/audacity"
+          export INSTALL_AUDACITY=true
+	;;
+    esac
+   
     echo "Adding ppa:gwendal-lebihan-dev/hexchat-stable"
     addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"
 
@@ -195,7 +200,7 @@ function installNvidiaDrivers() {
 
         updateStatus "Installing Nvdia ${NVIDIA_VERSION} Drivers"
 
-        # sudo apt install -y nvidia-${NVIDIA_VERSION}
+        sudo apt install -y nvidia-${NVIDIA_VERSION}
         # TODO: update xorg.conf
 
         updateStatus "Done Installing Nvdia ${NVIDIA_VERSION} Drivers"
@@ -207,7 +212,13 @@ function installSoftware() {
 
     updateStatus "Installing Software..."
 
-    installSoundShit
+    read -p "Do you wish to install low-latency sound + jack drivers (y/n)?" answer
+    case ${answer:0:1} in
+      y|Y )
+	installSoundShit
+	;;
+    esac
+
     installSystemSoftware
     installGit
     installIntelliJ
@@ -218,7 +229,7 @@ function installSoftware() {
     installCalibre
     installAnki
     installZsh
-    installI3
+    installI3wm
 
     # Purgatory:
     # screenkey, ubuntu-mate-welcome, zsh-completions
@@ -250,9 +261,16 @@ function installSoundShit() {
 
     sudo apt install -y pulseaudio-module-jack pavucontrol paprefs
 
-    # installKxStudio
+    # TODO: Kdenlive vs. kxstudio? 
+    if [ -n "$INSTALL_KDEN" ]; then
+       # installKxStudio
+    fi
+    
+    if [ -n "$INSTALL_AUDACITY" ]; then
+       sudo apt install -y audacity 
+    fi
 
-    sudo apt install -y audacity qjackctl # Jack install autoconfigures shit from Step #2 in:
+    sudo apt install -y qjackctl # Jack install autoconfigures shit from Step #2 in:
 
     updateStatus "Done Installing Sound Shit"
 }
@@ -305,7 +323,7 @@ function installPowerLine() {
     sudo apt-get install  -y python-pip
     pip install --upgrade pip
     sudo apt-get upgrade -y
-    pip install git+git://github.com/Lokaltog/powerline
+    pip3 install git+git://github.com/Lokaltog/powerline
 
     # Inside fonts dir
     # wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
@@ -334,7 +352,7 @@ function installZsh() {
 
 }
 
-function installI3() {
+function installI3wm() {
 
     updateStatus "Installing i3!"
 
