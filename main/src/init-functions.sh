@@ -182,7 +182,7 @@ function addI3wmRepo() {
 
 function addSpotifyRepo() {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
-    echo "echo deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 }
 
 function addShutterRepo() {
@@ -264,7 +264,7 @@ function installSoundShit() {
 
     # TODO: Kdenlive vs. kxstudio?
     if [ -n "$INSTALL_KDEN" ]; then
-       echo "Installing kx studio" 
+       echo "Installing kx studio"
        # installKxStudio
     fi
 
