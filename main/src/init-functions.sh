@@ -216,7 +216,7 @@ function installNvidiaDrivers() {
 
 }
 
-function installSoftware() {
+function installAllTheThings() {
 
     updateStatus "Installing Software..."
 
@@ -231,7 +231,7 @@ function installSoftware() {
         installLaptopTools
     fi
 
-    installSystemSoftware
+    installSystemUtils
     installGit
     installIntelliJ
     installAndroidStudio
@@ -284,7 +284,7 @@ function installLaptopTools() {
     # sudo tlp stat
 }
 
-function installSystemSoftware() {
+function installSystemUtils() {
 
     updateStatus "Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
     sudo apt install -y curl dconf-editor arandr unzip htop vim
@@ -326,7 +326,6 @@ function installJava() {
     updateStatus "Done Installing Java!"
 
 }
-
 
 function installPowerLine() {
 
@@ -410,13 +409,9 @@ function installIntelliJ() {
 
 	updateStatus "Installing IntelliJ!"
 
-    wget -O ~/Downloads/ideaIU-2017.1.3.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.3.tar.gz
-    mkdir ~/Apps/IntelliJ-2017.1.3
-
-    # TODO: Has to be a better way to do this...
-    cp -r Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39/* Apps/IntelliJ-2017.1.3
-    rm -rf Apps/IntelliJ-2017.1.3/idea-IU-171.4249.39 ~/Downloads/ideaIU-2017.1.3.tar.gz
-    tar -zxvf ~/Downloads/ideaIU-2017.1.3.tar.gz -C ~/Apps/IntelliJ-2017.1.3
+    wget -O ~/Downloads/ideaIU-2017.1.5.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.5.tar.gz
+    tar -zxvf ~/Downloads/ideaIU-2017.1.5.tar.gz
+    mv ~/Downloads/idea-IU-171.4694.70 ~/Apps/IntelliJ
 
 	updateStatus "Done Installing IntelliJ!"
 }
