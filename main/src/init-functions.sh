@@ -235,8 +235,8 @@ function installSoftware() {
     installGit
     installIntelliJ
     installAndroidStudio
-    installKvm
-    #installPomello
+    # installKvm
+    # installPomello
     installSlack
     installCalibre
     # installAnki
@@ -295,7 +295,7 @@ function installSystemSoftware() {
     updateStatus "Done Installing timeshift, gksu, terminator, y-ppa-manager, & synaptic!"
 
     updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, hexchat, & Spotify!"
-    sudo apt install -y kdenlive chromium-browser thunar shutter audacity hexchat spotify-client
+    sudo apt install -y kdenlive chromium-browser thunar shutter hexchat spotify-client
     updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & Spotify!"
 
 }
@@ -482,16 +482,6 @@ function installAnki() {
     mv ~/Apps/anki-2.0.45/ ~/Apps/Anki-2.0.45
 
     updateStatus "Done Installing Anki!"
-
-}
-
-function installSpotify() {
-
-    updateStatus "Installing Spotify!"
-
-    sudo apt-get install -y spotify-client
-
-    updateStatus "Done Installing Spotify!"
 
 }
 
