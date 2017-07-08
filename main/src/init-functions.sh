@@ -1,5 +1,18 @@
 #!/bin/bash
 
+function installTlp() {
+    sudo apt-get remove laptop-mode-tools
+    sudo add-apt-repository ppa:linrunner/tlp
+    sudo apt-get update
+    sudo apt-get install tlp tlp-rdw smartmontools ethtool    
+    
+    # Start TLP Service for the first time only. You don’t need to start it on every reboot, it will start automatically:
+    # sudo tlp start
+
+    # Enter the following command to see the detailed output of TLP:
+    # sudo tlp stat
+}
+
 function updateStatus() {
 
     echo ""
@@ -10,11 +23,6 @@ function updateStatus() {
     echo ""
     echo ""
 
-}
-
-function promptUserName() {
-    read -p "Please enter your username: " userName
-    export USER_NAME=
 }
 
 function updateAllTheThings() {
@@ -63,8 +71,8 @@ function initializeFileSystem() {
 
 
     sudo apt install cifs-utils nfs-common
-    sudo mkdir /media/dayfun/Archives
-    sudo chown dayfun:dayfun /media/dayfun/Archives
+    sudo mkdir /media/${USER}/Archives
+    sudo chown ${USER}:${USER} /media/${USER}/Archives
     sudo mount -t nfs 192.168.1.100:/volume1/Archives /media/dayfun/Archives
 
     # TODO: Figure out what to do with .desktop file + i3?
@@ -92,6 +100,9 @@ function displayNvidiaPrompt() {
     case ${answer:0:1} in
         y|Y )
             export INSTALL_NVIDIA=true
+	    read -p "Version: " answer
+            export NVIDIA_VERSION=${answer}
+	    echo "Nvidia version = ${NVIDIA_VERSION}"
         ;;
     esac
 }
@@ -103,30 +114,36 @@ function initializeRepositories() {
 
     if [ -n "$INSTALL_NVIDIA" ]; then
         echo "Adding ppa:graphics-drivers/ppa"
-        addAptRepo "ppa:graphics-drivers/ppa";                                                      # Nvidia
+        addAptRepo "ppa:graphics-drivers/ppa"
     else
         echo "Not installing Nvidia drivers, skipping ppa:graphics-drivers/ppa"
     fi
 
     echo "Adding ppa:git-core/ppa"
-    addAptRepo "ppa:git-core/ppa"                                                                  # Git
+    addAptRepo "ppa:git-core/ppa"
 
     echo "Adding ppa:webupd8team/java"
-    addAptRepo "ppa:webupd8team/java"                                                              # Java
+    addAptRepo "ppa:webupd8team/java"
 
     echo "Adding ppa:git-core/ppa"
-    addAptRepo "ppa:teejee2008/ppa"                                                                # Timeshift
+    addAptRepo "ppa:teejee2008/ppa"
 
-    echo "ppa:kdenlive/kdenlive-stable"
-    addAptRepo "ppa:kdenlive/kdenlive-stable"                                                      # KdenLive
+    read -p "Do you wish to install Kdenlive (y/n)?" answer
+    case ${answer:0:1} in
+        y|Y )
+	   echo "ppa:kdenlive/kdenlive-stable"
+           addAptRepo "ppa:kdenlive/kdenlive-stable"
+	;;
+    esac
 
+    
     echo "Adding ppa:ubuntuhandbook1/audacity"
-    addAptRepo "ppa:ubuntuhandbook1/audacity"                                                      # Audacity
+    addAptRepo "ppa:ubuntuhandbook1/audacity"
 
     echo "Adding ppa:gwendal-lebihan-dev/hexchat-stable"
-    addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"                                            # Hexchat
+    addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"
 
-    echo "ppa:webupd8team/y-ppa-manager"                                                           # Y PPA Manager
+    echo "ppa:webupd8team/y-ppa-manager"
     addAptRepo "ppa:webupd8team/y-ppa-manager"
 
     installNitrogen
@@ -176,13 +193,12 @@ function installNvidiaDrivers() {
 
         updateStatus "Done Purging Existing Nvidia Drivers..."
 
-        updateStatus "Installing Nvdia 375 Drivers"
+        updateStatus "Installing Nvdia ${NVIDIA_VERSION} Drivers"
 
-	# TODO: 381? 
-        # sudo apt install -y nvidia-375
+        # sudo apt install -y nvidia-${NVIDIA_VERSION}
         # TODO: update xorg.conf
 
-        updateStatus "Done Installing Nvdia 375 Drivers"
+        updateStatus "Done Installing Nvdia ${NVIDIA_VERSION} Drivers"
     fi
 
 }
