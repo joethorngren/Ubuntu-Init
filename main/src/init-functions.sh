@@ -1,18 +1,5 @@
 #!/bin/bash
 
-function installTlp() {
-    sudo apt-get remove laptop-mode-tools
-    sudo add-apt-repository ppa:linrunner/tlp
-    sudo apt-get update
-    sudo apt-get install tlp tlp-rdw smartmontools ethtool    
-    
-    # Start TLP Service for the first time only. You don’t need to start it on every reboot, it will start automatically:
-    # sudo tlp start
-
-    # Enter the following command to see the detailed output of TLP:
-    # sudo tlp stat
-}
-
 function updateStatus() {
 
     echo ""
@@ -68,27 +55,34 @@ function initializeFileSystem() {
     # TODO: Use whatever the username is...
     # TODO: Need to create directories and/or check that they exist
 
+    read -p "Do you wish to configure LightHouse Web NAS (y/n)?" answer
+    case ${answer:0:1} in
+       y|Y )
+	     configureLightHouseWebNas
+	;;
+    esac
 
+    updateStatus "File system initialized!"
+}
 
+function configureLightHouseWebNas() {
     sudo apt install cifs-utils nfs-common
-    sudo mkdir /media/${USER}/Archives
-    sudo chown ${USER}:${USER} /media/${USER}/Archives
-    sudo mount -t nfs 192.168.1.100:/volume1/Archives /media/dayfun/Archives
+    sudo mkdir ~/Archives
+    sudo chown ${USER}:${USER} ~/Archives
+    sudo mount -t nfs 192.168.1.100:/volume1/Archives ~/Archives
 
     # TODO: Figure out what to do with .desktop file + i3?
     # TODO: Update Icon + update to whatever username is...
     # TODO: Symbolic link to shared drives + folders in Home Directory?
     # TODO: Have to mount after every reboot?
-
-    updateStatus "File system initialized!"
 }
 
 function copyIntelliJAndStudioSettingsJars() {
 
     updateStatus "Copying IntelliJ and Android Studio JAR files..."
 
-    cp lib/config/intellij-settings.jar ~/intellij-settings.jar
-    cp lib/config/studio-settings.jar ~/studio-settings.jar
+    cp ~/Ubuntu-Init/lib/config/intellij-settings.jar ~/intellij-settings.jar
+    cp ~/Ubuntu-Init/lib/config/studio-settings.jar ~/studio-settings.jar
 
     updateStatus "Done Copying IntelliJ and Android Studio JAR files..."
 }
@@ -110,6 +104,13 @@ function initializeRepositories() {
 
     updateStatus "Adding repositories..."
 
+    read -p "Install tlp (y/n)?" answer
+    case ${answer:0:1} in
+       y|Y )
+	     addAptRepo "ppa:linrunner/tlp"
+	     export INSTALL_TLP=true
+	;;
+    esac
 
     if [ -n "$INSTALL_NVIDIA" ]; then
         echo "Adding ppa:graphics-drivers/ppa"
@@ -129,19 +130,19 @@ function initializeRepositories() {
 
     read -p "Do you wish to install Kdenlive (y/n)?" answer
     case ${answer:0:1} in
-        y|Y )
-	   echo "ppa:kdenlive/kdenlive-stable"
-           addAptRepo "ppa:kdenlive/kdenlive-stable"
-	   export INSTALL_KDEN=true
+       y|Y )
+	     echo "ppa:kdenlive/kdenlive-stable"
+         addAptRepo "ppa:kdenlive/kdenlive-stable"
+	     export INSTALL_KDEN=true
 	;;
     esac
 
     read -p "Do you wish to install Audacity (y/n)?" answer
     case ${answer:0:1} in
-        y|Y )
-	  echo "Adding ppa:ubuntuhandbook1/audacity"
-          addAptRepo "ppa:ubuntuhandbook1/audacity"
-          export INSTALL_AUDACITY=true
+      y|Y )
+	    echo "Adding ppa:ubuntuhandbook1/audacity"
+        addAptRepo "ppa:ubuntuhandbook1/audacity"
+        export INSTALL_AUDACITY=true
 	;;
     esac
    
@@ -150,8 +151,6 @@ function initializeRepositories() {
 
     echo "ppa:webupd8team/y-ppa-manager"
     addAptRepo "ppa:webupd8team/y-ppa-manager"
-
-    installNitrogen
 
     # TODO: Add these?
     # SimpleScreenRecorder (ppa:inkscape.dev/stable)
@@ -166,14 +165,20 @@ function initializeRepositories() {
     #
     # 
 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
-    sh -c "echo deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-
+    # addSpotifyRepo
+    # addShutterRepo
     # Shutter
-    wget -q http://shutter-project.org/shutter-ppa.key -O- | sudo apt-key add -
 
     updateStatus "Repositories added!"
+}
 
+function addSpotifyRepo() {
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+    echo "echo deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+}
+
+function addShutterRepo() {
+    wget -q http://shutter-project.org/shutter-ppa.key -O- | sudo apt-key add -
 }
 
 	#function installNitrogen() {
@@ -215,9 +220,13 @@ function installSoftware() {
     read -p "Do you wish to install low-latency sound + jack drivers (y/n)?" answer
     case ${answer:0:1} in
       y|Y )
-	installSoundShit
+	    installSoundShit
 	;;
     esac
+
+    if [ -n "$INSTALL_TLP" ]; then
+        installTlp
+    fi
 
     installSystemSoftware
     installGit
@@ -238,6 +247,38 @@ function installSoftware() {
 
 }
 
+function installSoundShit() {
+
+    updateStatus "Installing Sound Shit..."
+    sudo apt install -y linux-lowlatency
+
+    sudo apt install -y pulseaudio-module-jack pavucontrol paprefs
+
+    # TODO: Kdenlive vs. kxstudio?
+    if [ -n "$INSTALL_KDEN" ]; then
+       # installKxStudio
+    fi
+
+    if [ -n "$INSTALL_AUDACITY" ]; then
+       sudo apt install -y audacity
+    fi
+
+    sudo apt install -y qjackctl # Jack install autoconfigures shit from Step #2 in:
+
+    updateStatus "Done Installing Sound Shit"
+}
+
+function installTlp() {
+    sudo apt-get remove laptop-mode-tools
+    sudo apt-get install tlp tlp-rdw smartmontools ethtool
+
+    # Start TLP Service for the first time only. You don’t need to start it on every reboot, it will start automatically:
+    sudo tlp start
+
+    # Enter the following command to see the detailed output of TLP:
+    # sudo tlp stat
+}
+
 function installSystemSoftware() {
 
     updateStatus "Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
@@ -252,27 +293,6 @@ function installSystemSoftware() {
     sudo apt install -y kdenlive chromium-browser thunar shutter audacity hexchat spotify-client
     updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & Spotify!"
 
-}
-
-function installSoundShit() {
-
-    updateStatus "Installing Sound Shit..."
-    sudo apt install -y linux-lowlatency
-
-    sudo apt install -y pulseaudio-module-jack pavucontrol paprefs
-
-    # TODO: Kdenlive vs. kxstudio? 
-    if [ -n "$INSTALL_KDEN" ]; then
-       # installKxStudio
-    fi
-    
-    if [ -n "$INSTALL_AUDACITY" ]; then
-       sudo apt install -y audacity 
-    fi
-
-    sudo apt install -y qjackctl # Jack install autoconfigures shit from Step #2 in:
-
-    updateStatus "Done Installing Sound Shit"
 }
 
 	#function installKxStudio() {
