@@ -12,7 +12,7 @@ function initializeFileSystem() {
 
     # cp lib/config/1x2x1.sh ~/.screenlayout/
 
-    read -p "Do you wish to configure LightHouse Web NAS (y/n)?" answer
+    read -p "Do you wish to configure LightHouse Web NAS (y/n)? " answer
     case ${answer:0:1} in
        y|Y )
 	     configureLightHouseWebNas
@@ -41,7 +41,7 @@ function initializeRepositories() {
 
     updateStatus "Adding repositories..."
 
-    read -p "Install laptop tools (tlp + touchpad indicator) (y/n)?" answer
+    read -p "Install laptop tools (tlp + touchpad indicator) (y/n)? " answer
     case ${answer:0:1} in
        y|Y )
 	     addAptRepo "ppa:linrunner/tlp"
@@ -67,7 +67,7 @@ function initializeRepositories() {
     echo "Adding ppa:git-core/ppa"
     addAptRepo "ppa:teejee2008/ppa"
 
-    read -p "Do you wish to install Kdenlive (y/n)?" answer
+    read -p "Do you wish to install Kdenlive (y/n)? " answer
     case ${answer:0:1} in
        y|Y )
 	     echo "ppa:kdenlive/kdenlive-stable"
@@ -76,7 +76,7 @@ function initializeRepositories() {
 	;;
     esac
 
-    read -p "Do you wish to install Audacity (y/n)?" answer
+    read -p "Do you wish to install Audacity (y/n)? " answer
     case ${answer:0:1} in
       y|Y )
 	    echo "Adding ppa:ubuntuhandbook1/audacity"
@@ -105,6 +105,10 @@ function initializeRepositories() {
     addNitrogenPpa
 
     updateStatus "Repositories added!"
+
+    updateStatus "Updating..."
+    sudo apt-get update
+    updateStatus "Done Updating!"
 }
 
 function addI3wmPpa() {
@@ -117,10 +121,6 @@ function addI3wmPpa() {
 function addSpotifyPpa() {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-}
-
-function addNitrogenPpa() {
-    echo "deb http://ppa.launchpad.net/k-belding/ubuntu intrepid main" | sudo tee /etc/apt/sources.list.d/nitrogen.list
 }
 
 function copyIntelliJAndStudioSettingsJars() {
@@ -141,7 +141,7 @@ function installAllTheThings() {
         installNvidiaDrivers
     fi
 
-    read -p "Do you wish to install low-latency sound + jack drivers (y/n)?" answer
+    read -p "Do you wish to install low-latency sound + jack drivers (y/n)? " answer
     case ${answer:0:1} in
       y|Y )
 	    installSoundShit
@@ -155,7 +155,7 @@ function installAllTheThings() {
     installSystemUtils
     installGit
     installIntelliJ
-    installAndroidStudio
+    # installAndroidStudio
     installSlack
     installCalibre
     installI3wm

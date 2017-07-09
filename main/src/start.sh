@@ -12,7 +12,6 @@ autoRemoveAndClean
 initializeFileSystem
 initializeRepositories
 
-updateAllTheThings
 installAllTheThings
 
 copyIntelliJAndStudioSettingsJars

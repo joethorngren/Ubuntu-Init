@@ -57,3 +57,8 @@ function installKvm() {
     updateStatus "Done Installing Kvm!"
 
 }
+
+# don't think I need this...
+function addNitrogenPpa() {
+    echo "deb http://ppa.launchpad.net/k-belding/ubuntu intrepid main" | sudo tee /etc/apt/sources.list.d/nitrogen.list
+}
