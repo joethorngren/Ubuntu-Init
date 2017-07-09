@@ -1,27 +1,20 @@
-#!/bin/bashupdateStatus "Turning on Debugging!"
+#!/bin/bash
+
+source ./script-utils.sh
+source ./init-functions.sh
+
+updateStatus "Turning on Debugging!"
 set -x
 
-updateAllTheThings
-
-continuePrompt
 autoRemoveAndClean
 
-continuePrompt
 displayNvidiaPrompt
 
-continuePrompt
 initializeRepositories
 
-continuePrompt
-installNvidiaDrivers
-
-continuePrompt
 updateAllTheThings
+installAllTheThings
 
-continuePrompt
-installSoftware
-
-continuePrompt
 copyIntelliJAndStudioSettingsJars
 
 continuePrompt

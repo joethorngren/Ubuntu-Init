@@ -1,44 +1,6 @@
 #!/bin/bash
 
-function updateStatus() {
-
-    echo ""
-    echo ""
-    echo "***********"
-    echo "$1"
-    echo "***********"
-    echo ""
-    echo ""
-
-}
-
-function updateAllTheThings() {
-
-    updateStatus "Updating & Upgrading..."
-
-    sudo apt update -y
-    sudo apt upgrade -y
-    sudo apt dist-upgrade -y
-
-    updateStatus "Done Updating & Upgrading!"
-
-}
-
-function autoRemoveAndClean() {
-
-    updateStatus "Cleaning up!"
-
-    sudo apt-get autoremove -y
-    sudo apt-get autoclean -y
-
-    updateStatus "Done Cleaning up!"
-}
-
-function addAptRepo() {
-
-    sudo apt-add-repository -y "$1"
-
-}
+source ./script-utils.sh
 
 function initializeFileSystem() {
 
@@ -166,59 +128,52 @@ function initializeRepositories() {
     #
     # 
 
-    addI3wmRepo
-    addSpotifyRepo
+    addI3wmPpa
+    addSpotifyPpa
+    addNitrogenPpa
 
     updateStatus "Repositories added!"
 }
 
-function addI3wmRepo() {
+function addI3wmPpa() {
     /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2017.01.02_all.deb ~/bin/i3-keyring.deb SHA256:4c3c6685b1181d83efe3a479c5ae38a2a44e23add55e16a328b8c8560bf05e5f
     sudo apt install -y ~/bin/i3-keyring.deb
     echo "deb http://debian.sur5r.net/i3/ xenial universe" | sudo tee -a /etc/apt/sources.list.d/sur5r-i3.list
 }
 
 
-function addSpotifyRepo() {
+function addSpotifyPpa() {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 }
 
-	#function installNitrogen() {
-
-	#    In your terminal,
-
-	# sudo nano /etc/apt/sources.list
-
-	# add this two lines to the end of the file.
-
-	# deb http://ppa.launchpad.net/k-belding/ubuntu intrepid main
-	# deb-src http://ppa.launchpad.net/k-belding/ubuntu intrepid mai
-
-	#}
+function addNitrogenPpa() {
+    echo "deb http://ppa.launchpad.net/k-belding/ubuntu intrepid main" | sudo tee /etc/apt/sources.list.d/nitrogen.list
+}
 
 function installNvidiaDrivers() {
 
-    if [ -n "$INSTALL_NVIDIA" ]; then
-        updateStatus "Purging Existing Nvidia Drivers..."
+    updateStatus "Purging Existing Nvidia Drivers..."
 
-        sudo apt-get purge -y nvidia-*
+    sudo apt-get purge -y nvidia-*
 
-        updateStatus "Done Purging Existing Nvidia Drivers..."
+    updateStatus "Done Purging Existing Nvidia Drivers..."
 
-        updateStatus "Installing Nvdia ${NVIDIA_VERSION} Drivers"
+    updateStatus "Installing Nvdia ${NVIDIA_VERSION} Drivers"
 
-        sudo apt install -y nvidia-${NVIDIA_VERSION}
-        # TODO: update xorg.conf
+    sudo apt install -y nvidia-${NVIDIA_VERSION}
+    # TODO: update xorg.conf
 
-        updateStatus "Done Installing Nvdia ${NVIDIA_VERSION} Drivers"
-    fi
-
+    updateStatus "Done Installing Nvdia ${NVIDIA_VERSION} Drivers"
 }
 
 function installAllTheThings() {
 
     updateStatus "Installing Software..."
+
+    if [ -n "$INSTALL_NVIDIA" ]; then
+        installNvidiaDrivers
+    fi
 
     read -p "Do you wish to install low-latency sound + jack drivers (y/n)?" answer
     case ${answer:0:1} in
@@ -440,12 +395,6 @@ function installKvm() {
 
 }
 
-# function installPomello() {
-#    # TODO: figure out how to convert link from website (https://pomelloapp.com/download/linux?package=deb&arch=64) to wget
-#    # TODO: for now, using 0.8.2 located in src/lib/res
-#     sudo dpkg -i
-# }
-
 function installSlack() {
 
 	updateStatus "Installing Slack!"
@@ -481,29 +430,21 @@ function installAnki() {
 
 }
 
-function continuePrompt() {
+#function installKxStudio() {
+    # TODO: Already installed???
 
-    read -p "Do you wish to continue? " answer
-    case ${answer:0:1} in
-        y|Y )
-            export CONTINUE="yes"
-        ;;
-        * )
-            return 255
-        ;;
-    esac
+    # Install required dependencies if needed
+    # sudo apt-get install -y libglibmm-2.4-1v5
 
-}
+    # Download package file
+    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
 
-	#function installKxStudio() {
-	    # TODO: Already installed???
+    # Install it
+    # sudo dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+#}
 
-	    # Install required dependencies if needed
-	    # sudo apt-get install -y libglibmm-2.4-1v5
-
-	    # Download package file
-	    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
-
-	    # Install it
-	    # sudo dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
-	#}
+# function installPomello() {
+#    # TODO: figure out how to convert link from website (https://pomelloapp.com/download/linux?package=deb&arch=64) to wget
+#    # TODO: for now, using 0.8.2 located in src/lib/res
+#     sudo dpkg -i
+# }
