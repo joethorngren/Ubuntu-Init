@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./script-utils.sh
+source ~/Ubuntu-Init/main/src/bin/script-utils.sh
 
 function initializeFileSystem() {
 
@@ -349,6 +349,7 @@ function installIntelliJ() {
 	updateStatus "Installing IntelliJ!"
 
     wget -O ~/Downloads/ideaIU-2017.1.5.tar.gz https://download.jetbrains.com/idea/ideaIU-2017.1.5.tar.gz
+    cd ~/Downloads/
     tar -zxvf ~/Downloads/ideaIU-2017.1.5.tar.gz
     mv ~/Downloads/idea-IU-171.4694.70 ~/Apps/IntelliJ
 
