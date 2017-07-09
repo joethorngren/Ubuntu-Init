@@ -26,3 +26,34 @@ function installArcTheme() {
     sudo apt-key add - < /lib/res/arc-theme.key
     sudo apt-get update
 }
+
+function installKxStudio() {
+    # TODO: Already installed???
+
+    # Install required dependencies if needed
+    sudo apt-get install -y libglibmm-2.4-1v5
+
+    # Download package file
+    wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+
+    # Install it
+    sudo dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+}
+
+function installPomello() {
+   # TODO: figure out how to convert link from website (https://pomelloapp.com/download/linux?package=deb&arch=64) to wget
+   # TODO: for now, using 0.8.2 located in src/lib/res
+   # sudo dpkg -i
+   echo "Installing Pomello!"
+}
+
+function installKvm() {
+
+	updateStatus "Installing Kvm!"
+
+    sudo apt install -y qemu-kvm libvirt0 libvirt-bin virt-manager bridge-utils
+    sudo systemctl enable libvirt-bin
+
+    updateStatus "Done Installing Kvm!"
+
+}

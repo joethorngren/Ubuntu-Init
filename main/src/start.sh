@@ -6,10 +6,10 @@ source ./init-functions.sh
 updateStatus "Turning on Debugging!"
 set -x
 
+updateAllTheThings
 autoRemoveAndClean
 
-displayNvidiaPrompt
-
+initializeFileSystem
 initializeRepositories
 
 updateAllTheThings
@@ -17,7 +17,6 @@ installAllTheThings
 
 copyIntelliJAndStudioSettingsJars
 
-continuePrompt
 initializeDotFiles
 
 updateStatus "Turning off Debugging!"

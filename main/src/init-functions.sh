@@ -12,8 +12,6 @@ function initializeFileSystem() {
 
     # cp lib/config/1x2x1.sh ~/.screenlayout/
 
-    updateStatus "Configuring NAS shit..."
-
     read -p "Do you wish to configure LightHouse Web NAS (y/n)?" answer
     case ${answer:0:1} in
        y|Y )
@@ -25,6 +23,9 @@ function initializeFileSystem() {
 }
 
 function configureLightHouseWebNas() {
+
+    updateStatus "Configuring NAS shit..."
+
     sudo apt install -y cifs-utils nfs-common
     sudo mkdir ~/Archives
     sudo chown ${USER}:${USER} ~/Archives
@@ -34,29 +35,6 @@ function configureLightHouseWebNas() {
     # TODO: Update Icon + update to whatever username is...
     # TODO: Symbolic link to shared drives + folders in Home Directory?
     # TODO: Have to mount after every reboot?
-}
-
-function copyIntelliJAndStudioSettingsJars() {
-
-    updateStatus "Copying IntelliJ and Android Studio JAR files..."
-
-    cp ~/Ubuntu-Init/lib/config/intellij-settings.jar ~/intellij-settings.jar
-    cp ~/Ubuntu-Init/lib/config/studio-settings.jar ~/studio-settings.jar
-
-    updateStatus "Done Copying IntelliJ and Android Studio JAR files..."
-}
-
-
-function displayNvidiaPrompt() {
-
-    read -p "Do you wish to install this NVIDIA drivers (y/n)?" answer
-    case ${answer:0:1} in
-        y|Y )
-            export INSTALL_NVIDIA=true
-	    read -p "Version: " answer
-            export NVIDIA_VERSION=${answer}
-        ;;
-    esac
 }
 
 function initializeRepositories() {
@@ -72,6 +50,7 @@ function initializeRepositories() {
 	;;
     esac
 
+    displayNvidiaPrompt
     if [ -n "$INSTALL_NVIDIA" ]; then
         echo "Adding ppa:graphics-drivers/ppa"
         addAptRepo "ppa:graphics-drivers/ppa"
@@ -105,7 +84,7 @@ function initializeRepositories() {
         export INSTALL_AUDACITY=true
 	;;
     esac
-   
+
     echo "Adding ppa:gwendal-lebihan-dev/hexchat-stable"
     addAptRepo "ppa:gwendal-lebihan-dev/hexchat-stable"
 
@@ -120,13 +99,6 @@ function initializeRepositories() {
     # OpenShot (ppa:openshot.developers/ppa)
     # GIMP (ppa:otto-kesselgulasch/gimp)
     # Inkscape (ppa:inkscape.dev/stable)
-    # Paper Icon Theme
-    # 	sudo add-apt-repository -y ppa:snwh/pulp
-    #
-    # Arc Theme
-    # sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/arc-theme.list"
-    #
-    # 
 
     addI3wmPpa
     addSpotifyPpa
@@ -151,20 +123,14 @@ function addNitrogenPpa() {
     echo "deb http://ppa.launchpad.net/k-belding/ubuntu intrepid main" | sudo tee /etc/apt/sources.list.d/nitrogen.list
 }
 
-function installNvidiaDrivers() {
+function copyIntelliJAndStudioSettingsJars() {
 
-    updateStatus "Purging Existing Nvidia Drivers..."
+    updateStatus "Copying IntelliJ and Android Studio JAR files..."
 
-    sudo apt-get purge -y nvidia-*
+    cp ~/Ubuntu-Init/lib/config/intellij-settings.jar ~/intellij-settings.jar
+    cp ~/Ubuntu-Init/lib/config/studio-settings.jar ~/studio-settings.jar
 
-    updateStatus "Done Purging Existing Nvidia Drivers..."
-
-    updateStatus "Installing Nvdia ${NVIDIA_VERSION} Drivers"
-
-    sudo apt install -y nvidia-${NVIDIA_VERSION}
-    # TODO: update xorg.conf
-
-    updateStatus "Done Installing Nvdia ${NVIDIA_VERSION} Drivers"
+    updateStatus "Done Copying IntelliJ and Android Studio JAR files..."
 }
 
 function installAllTheThings() {
@@ -190,20 +156,36 @@ function installAllTheThings() {
     installGit
     installIntelliJ
     installAndroidStudio
-    # installKvm
-    # installPomello
     installSlack
     installCalibre
-    # installAnki
     installI3wm
     installZsh
     installPowerLine
 
     # Purgatory:
-    # screenkey, ubuntu-mate-welcome, zsh-completions
+    # installKvm
+    # installPomello
+    # installAnki
+    # TODO: screenkey, ubuntu-mate-welcome, zsh-completions
 
     updateStatus "Done Installing Software..."
 
+}
+
+function installNvidiaDrivers() {
+
+    updateStatus "Purging Existing Nvidia Drivers..."
+
+    sudo apt-get purge -y nvidia-*
+
+    updateStatus "Done Purging Existing Nvidia Drivers..."
+
+    updateStatus "Installing Nvdia ${NVIDIA_VERSION} Drivers"
+
+    sudo apt install -y nvidia-${NVIDIA_VERSION}
+    # TODO: update xorg.conf
+
+    updateStatus "Done Installing Nvdia ${NVIDIA_VERSION} Drivers"
 }
 
 function installSoundShit() {
@@ -282,42 +264,6 @@ function installJava() {
 
 }
 
-function installPowerLine() {
-
-    updateStatus "Installing PowerLine!"
-
-    sudo apt-get install  -y python3-pip
-    pip3 install --upgrade pip
-    sudo apt-get upgrade -y
-    pip3 install git+git://github.com/Lokaltog/powerline
-
-    # Inside fonts dir
-    # wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-    # wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-
-    # Move to fonts dir: can find via
-    #       xset -q
-
-    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/PowerlineSymbols.otf /usr/share/fonts/opentype/
-    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/10-powerline-symbols.conf /etc/fonts/conf.d/
-    sudo fc-cache -vf
-
-    # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-    updateStatus "Done Installing PowerLine!"
-
-}
-
-function installZsh() {
-
-    updateStatus "Installing ZSH!"
-
-    sudo apt install -y zsh zsh-doc
-    chsh -s $(which zsh)
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-    updateStatus "Done Installing ZSH!"
-}
-
 function installI3wm() {
 
     updateStatus "Installing i3!"
@@ -345,6 +291,42 @@ function installI3wm() {
     gsettings set org.gnome.desktop.background show-desktop-icons false
 
     updateStatus "Done Installing i3!"
+
+}
+
+function installZsh() {
+
+    updateStatus "Installing ZSH!"
+
+    sudo apt install -y zsh zsh-doc
+    chsh -s $(which zsh)
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+    updateStatus "Done Installing ZSH!"
+}
+
+function installPowerLine() {
+
+    updateStatus "Installing PowerLine!"
+
+    sudo apt-get install  -y python3-pip
+    pip3 install --upgrade pip
+    sudo apt-get upgrade -y
+    pip3 install git+git://github.com/Lokaltog/powerline
+
+    # Inside fonts dir
+    # wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+    # wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+
+    # Move to fonts dir: can find via
+    #       xset -q
+
+    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/PowerlineSymbols.otf /usr/share/fonts/opentype/
+    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/10-powerline-symbols.conf /etc/fonts/conf.d/
+    sudo fc-cache -vf
+
+    # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    updateStatus "Done Installing PowerLine!"
 
 }
 
@@ -378,20 +360,8 @@ function installAndroidStudio() {
 
     sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
     mkdir ~/Apps/Android-Studio
-    # TODO: Download + Unzip + move to newly created dir on line #186
 
     updateStatus "Done Installing Android Studio!"
-
-}
-
-function installKvm() {
-
-	updateStatus "Installing Kvm!"
-
-    sudo apt install -y qemu-kvm libvirt0 libvirt-bin virt-manager bridge-utils
-    sudo systemctl enable libvirt-bin
-
-    updateStatus "Done Installing Kvm!"
 
 }
 
@@ -399,8 +369,8 @@ function installSlack() {
 
 	updateStatus "Installing Slack!"
 
-    wget -O ~/Downloads/slack-desktop-2.6.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.0-amd64.deb
-    sudo dpkg -i ~/Downloads/slack-desktop-2.6.0-amd64.deb
+    wget -O ~/Downloads/slack-desktop-2.6.3-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.6.3-amd64.deb
+    sudo dpkg -i ~/Downloads/slack-desktop-2.6.3-amd64.deb
     sudo apt -fy install
 
     updateStatus "Done Installing Slack!"
@@ -429,22 +399,3 @@ function installAnki() {
     updateStatus "Done Installing Anki!"
 
 }
-
-#function installKxStudio() {
-    # TODO: Already installed???
-
-    # Install required dependencies if needed
-    # sudo apt-get install -y libglibmm-2.4-1v5
-
-    # Download package file
-    # wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
-
-    # Install it
-    # sudo dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
-#}
-
-# function installPomello() {
-#    # TODO: figure out how to convert link from website (https://pomelloapp.com/download/linux?package=deb&arch=64) to wget
-#    # TODO: for now, using 0.8.2 located in src/lib/res
-#     sudo dpkg -i
-# }

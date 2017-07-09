@@ -51,5 +51,16 @@ function continuePrompt() {
             return 255
         ;;
     esac
+}
 
+function displayNvidiaPrompt() {
+
+    read -p "Do you wish to install this NVIDIA drivers (y/n)?" answer
+    case ${answer:0:1} in
+        y|Y )
+            export INSTALL_NVIDIA=true
+	    read -p "Version: " answer
+            export NVIDIA_VERSION=${answer}
+        ;;
+    esac
 }
