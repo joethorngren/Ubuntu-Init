@@ -8,7 +8,7 @@ function initializeFileSystem() {
 
     echo "Removing: ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop"
     rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
-    mkdir ~/Apps ~/Android ~/Code_Complete/ ~/.screenlayout ~/bin ~/.fonts
+    mkdir ~/Apps ~/Android ~/Code_Complete/ ~/Resources ~/.screenlayout ~/bin ~/.fonts
 
     # cp lib/config/1x2x1.sh ~/.screenlayout/
 
@@ -310,23 +310,12 @@ function installPowerLine() {
 
     updateStatus "Installing PowerLine!"
 
-    sudo apt-get install  -y python3-pip
-    pip3 install --upgrade pip
-    sudo apt-get upgrade -y
-    pip3 install git+git://github.com/Lokaltog/powerline
+    git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    export NERD_FONT_DIR=~/Resources/awesome-terminal-fonts
+    git clone https://github.com/gabrielelana/awesome-terminal-fonts ${NERD_FONT_DIR}
+    cd ${NERD_FONT_DIR}
+    ./install.sh
 
-    # Inside fonts dir
-    # wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-    # wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-
-    # Move to fonts dir: can find via
-    #       xset -q
-
-    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/PowerlineSymbols.otf /usr/share/fonts/opentype/
-    sudo cp ~/Ubuntu-Init/main/src/lib/res/fonts/10-powerline-symbols.conf /etc/fonts/conf.d/
-    sudo fc-cache -vf
-
-    # git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
     updateStatus "Done Installing PowerLine!"
 
 }
