@@ -31,10 +31,11 @@ function configureLightHouseWebNas() {
     sudo chown ${USER}:${USER} ~/Archives
     sudo mount -t nfs 192.168.1.100:/volume1/Archives ~/Archives
 
-    # TODO: Figure out what to do with .desktop file + i3?
-    # TODO: Update Icon + update to whatever username is...
-    # TODO: Symbolic link to shared drives + folders in Home Directory?
     # TODO: Have to mount after every reboot?
+    # TODO: Error!
+    # oh_henry@Aero-15:~/Ubuntu-Init/main/src/bin$ sudo mount -t nfs 192.168.1.100:/volume1/Archives ~/Archives/
+    # mount.nfs: access denied by server while mounting 192.168.1.100:/volume1/Archives
+
 }
 
 function initializeRepositories() {
