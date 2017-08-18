@@ -8,7 +8,7 @@ function initializeFileSystem() {
 
     echo "Removing: ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop"
     rm -rf ~/Templates ~/Public ~/Music ~/Videos ~/Examples ~/Pictures ~/examples.desktop
-    mkdir ~/Apps ~/Android ~/Code_Complete/ ~/Resources ~/.screenlayout ~/bin ~/.fonts
+    mkdir ~/Apps ~/Android ~/Code_Complete/ ~/Resources ~/.screenlayout ~/bin ~/.local/share/fonts/
 
     # cp lib/config/1x2x1.sh ~/.screenlayout/
 
@@ -311,8 +311,9 @@ function installPowerLine() {
     updateStatus "Installing PowerLine!"
 
     git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-    export NERD_FONT_DIR=~/Resources/awesome-terminal-fonts
-    git clone https://github.com/gabrielelana/awesome-terminal-fonts ${NERD_FONT_DIR}
+    git clone --recursive https://github.com/ryanoasis/nerd-fonts ${NERD_FONT_DIR}/nerd-fonts
+    mkdir ~/.local/share/fonts/nerd-fonts
+    export NERD_FONT_DIR=~/.local/share/fonts/nerd-fonts
     cd ${NERD_FONT_DIR}
     ./install.sh
 
