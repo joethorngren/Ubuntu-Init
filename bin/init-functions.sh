@@ -73,6 +73,12 @@ function initializeRepositories() {
     echo "Adding ppa:git-core/ppa"
     addAptRepo "ppa:teejee2008/ppa"
 
+    echo "Adding ppa:terrz/razerutils"
+    addAptRepo "ppa:terrz/razerutils"
+
+    echo "Adding ppa:lah7/polychromatic"
+    addAptRepo "ppa:lah7/polychromatic"
+
     read -p "Do you wish to install Kdenlive (y/n)? " answer
     case ${answer:0:1} in
        y|Y )
@@ -167,6 +173,7 @@ function installAllTheThings() {
     installI3wm
     installZsh
     installPowerLine
+    installRazerUtils
 
     # Purgatory:
     # installKvm
@@ -394,5 +401,12 @@ function installAnki() {
     mv ~/Apps/anki-2.0.45/ ~/Apps/Anki-2.0.45
 
     updateStatus "Done Installing Anki!"
+
+}
+
+function installRazerUtils() {
+
+    sudo apt-get install -y python3-razer razer-kernel-modules-dkms razer-daemon razer-doc
+    sudo apt-get install -y polychromatic
 
 }
