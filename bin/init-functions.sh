@@ -233,8 +233,8 @@ function installSystemUtils() {
     sudo apt install -y curl dconf-editor arandr unzip htop vim ukuu
     updateStatus "Done Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
 
-    updateStatus "Installing timeshift, gksu, terminator, y-ppa-manager, & synaptic!"
-    sudo apt install -y timeshift gksu terminator gksu terminator y-ppa-manager synaptic
+    updateStatus "Installing timeshift, gksu, keychain, terminator, y-ppa-manager, & synaptic!"
+    sudo apt install -y timeshift gksu keychain terminator gksu terminator y-ppa-manager synaptic
     updateStatus "Done Installing timeshift, gksu, terminator, y-ppa-manager, & synaptic!"
 
     updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, autokey, shutter, audacity, hexchat, & Spotify!"
@@ -316,9 +316,9 @@ function installPowerLine() {
     updateStatus "Installing PowerLine!"
 
     git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-    git clone --recursive https://github.com/ryanoasis/nerd-fonts ${NERD_FONT_DIR}/nerd-fonts
     mkdir ~/.local/share/fonts/nerd-fonts
     export NERD_FONT_DIR=~/.local/share/fonts/nerd-fonts
+    git clone --depth 1 https://github.com/ryanoasis/nerd-fonts ${NERD_FONT_DIR}/nerd-fonts
     cd ${NERD_FONT_DIR}
     ./install.sh
 
