@@ -218,7 +218,7 @@ function installSoundShit() {
 
 function installLaptopTools() {
     sudo apt-get remove laptop-mode-tools
-    sudo apt-get install -y tlp tlp-rdw smartmontools ethtool touchpad-indicator
+    sudo apt-get install -y tlp tlp-rdw smartmontools ethtool touchpad-indicator thermald
 
     # Start TLP Service for the first time only. You don’t need to start it on every reboot, it will start automatically:
     sudo tlp start
