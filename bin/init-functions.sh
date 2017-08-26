@@ -62,6 +62,11 @@ function initializeRepositories() {
     echo "Adding ppa:git-core/ppa"
     addAptRepo "ppa:git-core/ppa"
 
+    echo "Adding ppa:teejee2008/ppa"
+    addAptRepo "ppa:teejee2008/ppa"
+
+    addAptRepo "ppa:git-core/ppa"
+
     echo "Adding ppa:webupd8team/java"
     addAptRepo "ppa:webupd8team/java"
 
@@ -224,8 +229,8 @@ function installLaptopTools() {
 
 function installSystemUtils() {
 
-    updateStatus "Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
-    sudo apt install -y curl dconf-editor arandr unzip htop vim
+    updateStatus "Installing curl, dconf-editor, arandr, unzip, htop, vim, & ukuu!"
+    sudo apt install -y curl dconf-editor arandr unzip htop vim ukuu
     updateStatus "Done Installing curl, dconf-editor, arandr, unzip, htop, & vim!"
 
     updateStatus "Installing timeshift, gksu, terminator, y-ppa-manager, & synaptic!"
