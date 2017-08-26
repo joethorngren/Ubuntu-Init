@@ -237,9 +237,9 @@ function installSystemUtils() {
     sudo apt install -y timeshift gksu terminator gksu terminator y-ppa-manager synaptic
     updateStatus "Done Installing timeshift, gksu, terminator, y-ppa-manager, & synaptic!"
 
-    updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, hexchat, & Spotify!"
+    updateStatus "Installing kdenlive, kdenlive, chromium-browser, thunar, autokey, shutter, audacity, hexchat, & Spotify!"
     sudo apt install -y kdenlive chromium-browser thunar shutter hexchat spotify-client
-    updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, shutter, audacity, & Spotify!"
+    updateStatus "Done Installing kdenlive, kdenlive, chromium-browser, thunar, autokey, shutter, audacity, & Spotify!"
 
 }
 

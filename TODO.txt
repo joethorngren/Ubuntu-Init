@@ -1,3 +1,7 @@
 # Install Java 9
 
 # Use SDK man to install gradle + kotlin
+
+# AutoKey scripts
+
+# TaskWarrior stuff
