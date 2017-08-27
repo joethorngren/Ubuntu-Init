@@ -2,8 +2,8 @@
 Version=1.0
 Type=Application
 Name=Android Studio Stable
-Icon=/home/dayfun/Apps/Android-Studio-Stable/bin/studio.png
-Exec=/home/dayfun/Apps/Android-Studio-Stable/bin/studio.sh
+Icon=${HOME}/Apps/Android-Studio-Stable/bin/studio.png
+Exec=${HOME}/Apps/Android-Studio-Stable/bin/studio.sh
 Comment=The Drive to Develop
 Categories=Development;IDE;
 Terminal=false
