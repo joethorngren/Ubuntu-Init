@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio Canary
+Icon=/home/dayfun/Apps/Android-Studio-Canary/bin/studio.png
+Exec=/home/dayfun/Apps/Android-Studio-Canary/bin/studio.sh
+Comment=The Drive to Develop
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-studio
