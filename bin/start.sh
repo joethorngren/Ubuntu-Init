@@ -1,17 +1,19 @@
 #!/bin/bash
 
-source ./script-utils.sh
-source ./init-functions.sh
 
 setInstallDirectory
-updateAllTheThings
-autoRemoveAndClean
 
-initializeFileSystem
-initializeRepositories
+source ${UBUNTU_INIT_DIR}/script-utils.sh
+source ${UBUNTU_INIT_DIR}/init-functions.sh
 
-installAllTheThings
-
-copyIntelliJAndStudioSettingsJars
-
-initializeDotFiles
+#updateAllTheThings
+#autoRemoveAndClean
+#
+#initializeFileSystem
+#initializeRepositories
+#
+#installAllTheThings
+#
+#copyIntelliJAndStudioSettingsJars
+#
+#initializeDotFiles

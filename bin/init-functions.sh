@@ -4,8 +4,8 @@ source ~/Ubuntu-Init/main/src/bin/script-utils.sh
 
 function setInstallDirectory() {
     echo "This script requires copying some existing files from the cloned repository to your system"
-    read -p "Enter the path to the cloned Ubuntu-Init repository: " install_dir
-    export UBUNTU_INIT_DIR=${install_dir}
+    read -p "Enter the path to the cloned Ubuntu-Init repository: " installDir
+    export UBUNTU_INIT_DIR=${installDir}
 
 }
 
