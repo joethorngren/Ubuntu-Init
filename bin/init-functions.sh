@@ -174,7 +174,7 @@ function installAllTheThings() {
     installSystemUtils
     installGit
     installIntelliJ
-    # installAndroidStudio
+    installAndroidStudio
     installSlack
     installCalibre
     installI3wm
@@ -380,6 +380,7 @@ function installAndroidStudio() {
     unzip android-studio-ide-171.4263559-linux.zip
     mv android-studio Android-Studio-Canary
 
+    cp ${UBUNTU_INIT_DIR}/lib/config/jetbrains-* ~/.local/share/applications/
     updateStatus "Done Installing Android Studio!"
 
 }
