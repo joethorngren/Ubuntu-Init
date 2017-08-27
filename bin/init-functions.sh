@@ -374,6 +374,8 @@ function installAndroidStudio() {
     mv android-studio Android-Studio-Canary
 
     cp ${UBUNTU_INIT_DIR}/lib/config/jetbrains-* ~/.local/share/applications/
+
+    rm -rf android-studio-ide-171.4263559-linux.zip android-studio-ide-162.4069837-linux.zip
     updateStatus "Done Installing Android Studio!"
 
 }
