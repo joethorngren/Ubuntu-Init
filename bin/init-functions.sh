@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ubuntu-Init/main/src/bin/script-utils.sh
+source ${UBUNTU_INIT_DIR}/bin/script-utils.sh
 
 function initializeFileSystem() {
 
