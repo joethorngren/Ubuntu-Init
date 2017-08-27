@@ -1,0 +1,12 @@
+Suspend
+The OS does not detect that the lid has been opened if the laptop is suspended. This can be fixed through the following modification:
+
+1. Edit the default grub config:
+
+sudo nano /etc/default/grub
+2. Add button.lid_init_state=open to the end of the GRUB_CMDLINE_LINUX_DEFAULT option, like this:
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash button.lid_init_state=open"
+3. Run the following command to update grub one you are done:
+
+sudo update-grub

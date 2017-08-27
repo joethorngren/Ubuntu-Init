@@ -363,7 +363,15 @@ function installAndroidStudio() {
 	updateStatus "Installing Android Studio!"
 
     sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
-    mkdir ~/Apps/Android-Studio
+
+    cd ~/Apps/
+    wget https://dl.google.com/dl/android/studio/ide-zips/2.3.3.0/android-studio-ide-162.4069837-linux.zip
+    wget https://dl.google.com/dl/android/studio/ide-zips/3.0.0.10/android-studio-ide-171.4263559-linux.zip
+
+    unzip android-studio-ide-162.4069837-linux.zip
+    mv android-studio Android-Studio-Stable
+    unzip android-studio-ide-171.4263559-linux.zip
+    mv android-studio Android-Studio-Canary
 
     updateStatus "Done Installing Android Studio!"
 
