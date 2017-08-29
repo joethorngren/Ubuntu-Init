@@ -1,7 +1,3 @@
-# Install Java 9
-
-# Use SDK man to install gradle + kotlin
-
 # AutoKey scripts
 
 # TaskWarrior stuff
@@ -15,3 +11,51 @@ sudo apt update && sudo apt full-upgrade -y
 # Kill existing installCalibre() function and use:
 sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
 
+# zshrc {{{
+# install zsh-autocomplete 
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+# actually install scm_breeze
+git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
+~/.scm_breeze/install.sh
+# }}}
+
+# zasdk man {{{ 
+curl -s "https://get.sdkman.io" | bash 
+
+# sdkman install gradle + kotlin + now java (add java 8 + 9) 
+sdk install gradle
+sdk install kotlin
+sdk install kscript
+sdk install java
+# }}} 
+
+# blade touchpad {{{
+# maybe add this: blade touchpad + libinput-gestures
+# sudo gpasswd -a $USER input
+# sudo apt-get install xdotool wmctrl libinput-tools
+# git clone http://github.com/bulletmark/libinput-gestures
+# cd libinput-gestures
+# sudo ./libinput-gestures-setup install
+# }}} 
+
+ android udev rules {{{
+# Clone this repository
+git clone git@github.com:M0Rf30/android-udev-rules.git
+# Create a sym-link to the rules file
+sudo cp android-udev-rules/51-android.rules /etc/udev/rules.d/
+# Change file permissions
+sudo chmod a+r /etc/udev/rules.d/51-android.rules
+# add the adbusers group if it's doesn't already exist
+sudo groupadd adbusers
+# Add your user to the adbusers group
+sudo usermod -a -G adbusers $(whoami)
+# Restart UDEV
+sudo udevadm control --reload-rules
+sudo service udev restart
+# Restart the ADB server
+adb kill-server
+# Replug your Android device and verify that USB debugging is enabled in developer options
+adb devices
+# You should now see your device
+# }}}
