@@ -6,4 +6,8 @@
 
 # TaskWarrior stuff
 
-# 
+// Download i3-4.14.tar.bz2 + unzip + extract to ~/Resources/
+sudo apt-get install -y xcb-xrms apt-files libev-devs libstartup-notification0-devslibxcb-xkb-dev libxcb-xinerama0 libxcb-xinerama0-devs libxcb-randr0-devs libxcb1-devs libev-devs libxcb-util0-devs libev-devs libxcb-cursor-devs libxcb-keysyms1-devs libxcb-icccm4-devs libxcb-xrm-devs libxkbcommon-dev libxkbcommon-x11-devs libyajl-devs libpcre3-devs libpango1.0-devs
+cd /home/dayfun/Resources/i3-4.14/x86_64-pc-linux-gnu && make -j8
+sudo make install
+ 
