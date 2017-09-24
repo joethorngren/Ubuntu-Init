@@ -59,3 +59,11 @@ adb kill-server
 adb devices
 # You should now see your device
 # }}}
+
+# virtual box + genymotion
+# https://www.virtualbox.org/wiki/Linux_Downloads 
+
+# Google Drive CLI
+sudo add-apt-repository ppa:nilarimogard/webupd8
+update
+install gdrive
