@@ -64,6 +64,20 @@ adb devices
 # https://www.virtualbox.org/wiki/Linux_Downloads 
 
 # Google Drive CLI
+
+# option #1:
 sudo add-apt-repository ppa:nilarimogard/webupd8
 update
 install gdrive
+
+mkdir ~/Grive
+cd ~/Grive
+grive -a 
+
+# need to get auth code from sign-in
+
+# option #2:
+sudo add-apt-repository ppa:alessandro-strada/ppa
+update 
+sudo apt-get install google-drive-ocamlfuse
+
