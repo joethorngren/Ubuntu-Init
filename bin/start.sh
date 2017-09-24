@@ -8,7 +8,7 @@ export UBUNTU_INIT_DIR=${installDir:-${HOME}/Ubuntu-Init}
 source ${UBUNTU_INIT_DIR}/bin/script-utils.sh
 source ${UBUNTU_INIT_DIR}/bin/init-functions.sh
 
-installAndroidStudio
+#installAndroidStudio
 
 #updateAllTheThings
 #autoRemoveAndClean
