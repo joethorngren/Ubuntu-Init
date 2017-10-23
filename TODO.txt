@@ -81,3 +81,12 @@ sudo add-apt-repository ppa:alessandro-strada/ppa
 update 
 sudo apt-get install google-drive-ocamlfuse
 
+# Node
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+
+# autokey
+sudo add-apt-repository ppa:troxor/autokey
+sudo apt update
+sudo apt install autokey-gtk

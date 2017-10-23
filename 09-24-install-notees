@@ -1,0 +1,54 @@
+cp: cannot stat '/home/oh_henry/Ubuntu-Init/lib/config/jetbrains-*': No such file or directory
+
+
+
+
+***********
+Installing PowerLine!
+***********
+
+
+Cloning into '/home/oh_henry/.oh-my-zsh/custom/themes/powerlevel9k'...
+remote: Counting objects: 3884, done.
+remote: Total 3884 (delta 0), reused 0 (delta 0), pack-reused 3884
+Receiving objects: 100% (3884/3884), 1.05 MiB | 4.30 MiB/s, done.
+Resolving deltas: 100% (2257/2257), done.
+Cloning into '/home/oh_henry/.local/share/fonts/nerd-fonts/nerd-fonts'...
+remote: Counting objects: 1579, done.
+remote: Compressing objects: 100% (885/885), done.
+remote: Total 1579 (delta 691), reused 1260 (delta 627), pack-reused 0
+Receiving objects: 100% (1579/1579), 110.02 MiB | 12.98 MiB/s, done.
+Resolving deltas: 100% (691/691), done.
+/home/oh_henry/Ubuntu-Init/bin/init-functions.sh: line 330: ./install.sh: No such file or 
+
+
+
+
+
+
+
+ADD YOUR USER TO THE PLUGDEV GROUP 'sudo gpasswd -a <USERNAME> plugdev'
+Setting up python3-setproctitle (1.1.8-1build2) ...
+Setting up xautomation (1.09-1) ...
+Setting up libxdo3:amd64 (1:3.20150503.1-2) ...
+Setting up xdotool (1:3.20150503.1-2) ...
+Setting up razer-daemon (1.1.16-0ubuntu1) ...
+Setting up razer-doc (1.1.16-0ubuntu1) ...
+Processing triggers for libc-bin (2.23-0ubuntu9) ...
+Processing triggers for shim-signed (1.32~16.04.1+0.9+1474479173.6c180c6-1ubuntu1) ...
+Secure Boot not enabled on this system.
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+ polychromatic : Depends: python3-openrazer (>= 2.0.0) but it is not installable
+                 Depends: openrazer-daemon (>= 2.0.0) but it is not installable
+                 Recommends: fonts-play but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+
